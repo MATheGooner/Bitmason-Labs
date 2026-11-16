@@ -1,0 +1,209 @@
+{
+  "reviewedOn": "2026-11-14",
+  "desktopViewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "mobileViewport": {
+    "width": 390,
+    "height": 844
+  },
+  "method": "Primary website text review plus isolated Chromium inspection of computed styles and desktop/mobile captures. A 403 page is not treated as a visual reference.",
+  "references": [
+    {
+      "key": "futurice",
+      "url": "https://www.futurice.com/",
+      "status": 200,
+      "title": "Futurice, digital transformations with measurable outcomes",
+      "headingFonts": [
+        "Manrope, Arial, Helvetica, sans-serif"
+      ],
+      "desktopHeadingSizes": [
+        "56px"
+      ],
+      "bodyFont": "Manrope, Arial, Helvetica, sans-serif",
+      "mobileHeadingSize": "32px",
+      "mobileViewportWidth": 390,
+      "mobileDocumentWidth": 390,
+      "mobileControls": [
+        {
+          "text": "",
+          "label": "Toggle Navigation",
+          "expanded": "false",
+          "controls": "main-nav-menu"
+        },
+        {
+          "text": "Toggle search",
+          "label": null,
+          "expanded": "false",
+          "controls": "header-searchform"
+        },
+        {
+          "text": "Toggle language switcher",
+          "label": null,
+          "expanded": "false",
+          "controls": null
+        }
+      ]
+    },
+    {
+      "key": "netguru",
+      "url": "https://www.netguru.com/",
+      "status": 200,
+      "title": "Software Development Company | Netguru",
+      "headingFonts": [
+        "\"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "desktopHeadingSizes": [
+        "90px"
+      ],
+      "bodyFont": "\"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+      "mobileHeadingSize": "51.25px",
+      "mobileViewportWidth": 390,
+      "mobileDocumentWidth": 390,
+      "mobileControls": [
+        {
+          "text": "Main menu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        },
+        {
+          "text": "Open the Services submenu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        },
+        {
+          "text": "Open the Commerce submenu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        },
+        {
+          "text": "Open the Solutions submenu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        },
+        {
+          "text": "Open the Clients submenu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        },
+        {
+          "text": "Open the About us submenu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        },
+        {
+          "text": "Open the Insights submenu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        },
+        {
+          "text": "Toggle menu",
+          "label": null,
+          "expanded": null,
+          "controls": null
+        }
+      ]
+    },
+    {
+      "key": "dept",
+      "url": "https://www.dept.global/",
+      "status": 200,
+      "title": "The Growth Invention Company | Tech, Marketing, AI Solutions | DEPT®",
+      "headingFonts": [
+        "\"Inter Variable\", system-ui, sans-serif"
+      ],
+      "desktopHeadingSizes": [
+        "112px"
+      ],
+      "bodyFont": "\"Inter Variable\", system-ui, sans-serif",
+      "mobileHeadingSize": "44px",
+      "mobileViewportWidth": 390,
+      "mobileDocumentWidth": 390,
+      "mobileControls": [
+        {
+          "text": "Change location",
+          "label": null,
+          "expanded": "false",
+          "controls": null
+        }
+      ]
+    },
+    {
+      "key": "made-tech",
+      "url": "https://www.madetech.com/",
+      "status": 403,
+      "limitations": "Browser received a protection page. Use primary text pages for services and messaging only; no visual or typography conclusions."
+    },
+    {
+      "key": "ustwo",
+      "url": "https://ustwo.com/",
+      "status": 200,
+      "title": "ustwo | Digital Product Studio",
+      "headingFonts": [
+        "\"ABC Diatype Condensed\", Helvetica, Arial, sans-serif"
+      ],
+      "desktopHeadingSizes": [
+        "201.833px"
+      ],
+      "bodyFont": "\"ABC Diatype\", Helvetica, Arial, sans-serif",
+      "mobileHeadingSize": "65.1146px",
+      "mobileViewportWidth": 390,
+      "mobileDocumentWidth": 390,
+      "mobileControls": [
+        {
+          "text": "",
+          "label": "Open website navigation",
+          "expanded": "false",
+          "controls": "nav"
+        }
+      ]
+    },
+    {
+      "key": "netguru-zabka",
+      "url": "https://www.netguru.com/clients/autonomous-stores-zabka",
+      "status": 200,
+      "title": "Engineering Autonomy: How Netguru Powered Żabka Nano’s Autonomous Stores",
+      "headingFonts": [
+        "\"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+      ],
+      "desktopHeadingSizes": [
+        "65px"
+      ],
+      "bodyFont": "\"DM Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "key": "ustwo-i-paper",
+      "url": "https://ustwo.com/work/the-i-paper/",
+      "status": 200,
+      "title": "The i Paper x ustwo",
+      "headingFonts": [
+        "\"ABC Diatype Condensed\", Helvetica, Arial, sans-serif"
+      ],
+      "desktopHeadingSizes": [
+        "104.774px"
+      ],
+      "bodyFont": "\"ABC Diatype\", Helvetica, Arial, sans-serif"
+    },
+    {
+      "key": "futurice-enbw",
+      "url": "https://www.futurice.com/case-studies/enbw-genai-customercare",
+      "status": 200,
+      "title": "EnBW: Transforming Customer Service with Generative AI",
+      "headingFonts": [
+        "Manrope, Arial, Helvetica, sans-serif"
+      ],
+      "desktopHeadingSizes": [
+        "56px"
+      ],
+      "bodyFont": "Manrope, Arial, Helvetica, sans-serif"
+    }
+  ]
+}

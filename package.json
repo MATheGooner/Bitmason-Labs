@@ -1,0 +1,40 @@
+{
+  "name": "bitmason-labs",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "node node_modules/next/dist/bin/next dev",
+    "build": "node node_modules/next/dist/bin/next build",
+    "start": "node node_modules/next/dist/bin/next start",
+    "lint": "node node_modules/eslint/bin/eslint.js . --max-warnings=0",
+    "lint:fix": "node node_modules/eslint/bin/eslint.js . --fix",
+    "typecheck": "node node_modules/next/dist/bin/next typegen && node node_modules/typescript/bin/tsc --noEmit",
+    "check": "node node_modules/eslint/bin/eslint.js . --max-warnings=0 && node node_modules/next/dist/bin/next typegen && node node_modules/typescript/bin/tsc --noEmit && node node_modules/next/dist/bin/next build"
+  },
+  "dependencies": {
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "server-only": "0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.5",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "10.15.0",
+    "eslint-config-next": "16.4.6",
+    "postcss": "^8.5.6",
+    "tailwindcss": "4.3.5",
+    "typescript": "5.9.3"
+  },
+  "overrides": {
+    "eslint": "$eslint",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.8"
+    }
+  }
+}

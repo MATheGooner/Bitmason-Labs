@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* Foundation tokens. Final font assets and marketing layouts belong to Batch 2. */
+@theme {
+  --color-paper: #f6f5f0;
+  --color-surface: #ecece4;
+  --color-ink: #202623;
+  --color-muted: #57615a;
+  --color-line: #cbd0c7;
+  --color-accent: #185442;
+  --color-accent-hover: #123e31;
+  --color-copper: #a4492d;
+
+  --font-sans: "Manrope", "Segoe UI", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, "Liberation Mono", monospace;
+
+  --container-site: 80rem;
+  --radius-sm: 0.25rem;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0s !important;
+      animation-duration: 0s !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}
