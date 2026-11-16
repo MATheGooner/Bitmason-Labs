@@ -1,6 +1,8 @@
 @import "tailwindcss";
+@import "./homepage.css";
+@import "./public-pages.css";
 
-/* Foundation tokens. Final font assets and marketing layouts belong to Batch 2. */
+/* Semantic identity tokens shared by the application and homepage. */
 @theme {
   --color-paper: #f6f5f0;
   --color-surface: #ecece4;
@@ -9,19 +11,60 @@
   --color-line: #cbd0c7;
   --color-accent: #185442;
   --color-accent-hover: #123e31;
+  --color-on-accent: #ffffff;
   --color-copper: #a4492d;
 
-  --font-sans: "Manrope", "Segoe UI", Arial, sans-serif;
-  --font-mono: "IBM Plex Mono", Consolas, "Liberation Mono", monospace;
+  /* The systems section has its own stable inverse palette. */
+  --color-inverse-surface: #202623;
+  --color-inverse-ink: #f6f5f0;
+  --color-inverse-muted: #c1ccc3;
+  --color-inverse-accent: #c5d7c9;
+  --color-inverse-copper: #d6ad8d;
+  --color-inverse-line: #758578;
 
   --container-site: 80rem;
   --radius-sm: 0.25rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-manrope), "Segoe UI", Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), Consolas, "Liberation Mono", monospace;
 }
 
 @layer base {
   html {
     color-scheme: light;
     scroll-padding-top: 6rem;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --color-paper: #171c19;
+    --color-surface: #222b25;
+    --color-ink: #f0f1e9;
+    --color-muted: #b4beb6;
+    --color-line: #45544b;
+    --color-accent: #8fc9af;
+    --color-accent-hover: #b1ddc6;
+    --color-on-accent: #13281e;
+    --color-copper: #e0a17f;
+    --color-inverse-surface: #101612;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) {
+      color-scheme: dark;
+      --color-paper: #171c19;
+      --color-surface: #222b25;
+      --color-ink: #f0f1e9;
+      --color-muted: #b4beb6;
+      --color-line: #45544b;
+      --color-accent: #8fc9af;
+      --color-accent-hover: #b1ddc6;
+      --color-on-accent: #13281e;
+      --color-copper: #e0a17f;
+      --color-inverse-surface: #101612;
+    }
   }
 
   body {
@@ -34,7 +77,7 @@
 
   ::selection {
     background: var(--color-accent);
-    color: #fff;
+    color: var(--color-on-accent);
   }
 
   :focus-visible {

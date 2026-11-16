@@ -1,18 +1,17 @@
 import Link from "next/link";
 
+import { PublicPage } from "@/components/layout/public-page";
+import { PageHero } from "@/components/public/page-hero";
 import { buttonClassName } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
 
 export default function NotFound() {
   return (
-    <main id="main-content" tabIndex={-1} className="py-16 sm:py-24">
-      <Container>
-        <h1 className="text-3xl font-semibold tracking-tight">Page not found.</h1>
-        <p className="mt-4 mb-8 text-muted">The requested page is unavailable.</p>
+    <PublicPage>
+      <PageHero eyebrow="404 / Page unavailable" title="Page not found." description="The requested page is unavailable. Explore our services and portfolio, or return to the homepage.">
         <Link href="/" className={buttonClassName("secondary")}>
           Return to the start
         </Link>
-      </Container>
-    </main>
+      </PageHero>
+    </PublicPage>
   );
 }

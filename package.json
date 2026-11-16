@@ -7,6 +7,11 @@
   },
   "scripts": {
     "dev": "node node_modules/next/dist/bin/next dev",
+    "db:generate": "node node_modules/drizzle-kit/bin.cjs generate",
+    "db:migrate": "node --conditions=react-server --import tsx scripts/database.ts migrate",
+    "db:seed": "node --conditions=react-server --import tsx scripts/database.ts seed",
+    "db:check": "node --conditions=react-server --import tsx scripts/database.ts check",
+    "admin:password": "node --conditions=react-server --import tsx scripts/admin-password.ts",
     "build": "node node_modules/next/dist/bin/next build",
     "start": "node node_modules/next/dist/bin/next start",
     "lint": "node node_modules/eslint/bin/eslint.js . --max-warnings=0",
@@ -15,26 +20,36 @@
     "check": "node node_modules/eslint/bin/eslint.js . --max-warnings=0 && node node_modules/next/dist/bin/next typegen && node node_modules/typescript/bin/tsc --noEmit && node node_modules/next/dist/bin/next build"
   },
   "dependencies": {
+    "@neondatabase/serverless": "1.2.1",
+    "@next/env": "16.4.6",
+    "drizzle-orm": "0.45.4",
     "next": "16.4.6",
+    "next-auth": "5.0.0-beta.32",
     "react": "19.3.1",
     "react-dom": "19.3.1",
-    "server-only": "0.0.1"
+    "server-only": "0.0.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "4.3.5",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "drizzle-kit": "0.31.11",
     "eslint": "10.15.0",
     "eslint-config-next": "16.4.6",
     "postcss": "^8.5.6",
     "tailwindcss": "4.3.5",
+    "tsx": "4.23.15",
     "typescript": "5.9.3"
   },
   "overrides": {
     "eslint": "$eslint",
     "@typescript-eslint/typescript-estree": {
       "minimatch": "11.0.8"
+    },
+    "@esbuild-kit/core-utils": {
+      "esbuild": "0.25.12"
     }
   }
 }

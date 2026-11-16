@@ -8,8 +8,8 @@ type ButtonProps = ComponentProps<"button"> & {
 };
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "border-accent bg-accent text-white hover:border-accent-hover hover:bg-accent-hover",
-  secondary: "border-line bg-transparent text-ink hover:border-ink hover:bg-surface",
+  primary: "border-accent bg-accent text-on-accent hover:border-accent-hover hover:bg-accent-hover",
+  secondary: "border-muted bg-transparent text-ink hover:border-ink hover:bg-surface",
 };
 
 /** Also usable on next/link; use links for navigation and buttons for actions. */

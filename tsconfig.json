@@ -25,6 +25,8 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "next.config.ts",
+    "drizzle.config.ts",
+    "scripts/**/*.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],

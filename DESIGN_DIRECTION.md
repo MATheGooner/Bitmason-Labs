@@ -2,7 +2,49 @@
 
 Batch 1 · 14 November 2026 · Research and blueprint only.
 
-## Positioning and design objective
+## Current direction — approved refinement, 16 November 2026
+
+This checkpoint preceded Batch 4, after the completion of Batch 3. The
+six-batch roadmap is unchanged. This section supersedes the historical public
+positioning and exact-tagline requirements below; the original research remains
+as a record of Batch 1.
+
+- Eyebrow: **Digital engineering for business.**
+- Headline: **Make it easier to choose you. Make the work behind it simpler.**
+- Supporting copy: **We build websites, online stores and custom software that
+  help customers understand your offer, enquire, buy and book. We connect those
+  journeys to the tools and workflows your team uses.**
+- Signature: **From customer interest to everyday operations.**
+- Actions: **Discuss a project** and **Explore what we build**.
+- Geographic wording: **Working with businesses internationally.** Europe is the
+  initial acquisition focus, not a service boundary.
+
+Lead with the commercial purpose of each service. Describe how customer journeys
+and team workflows can improve, without guaranteed results, invented clients or
+unsupported metrics. Retain all five fictional concepts and their disclosures.
+
+Preserve the logo, Manrope/IBM Plex Mono typography, warm light palette, green and
+copper identity, editorial layouts and original illustrations. Small labels are
+at least 12px; open service rows have a quiet surface treatment. The About mark
+remains a visual brand device without origin-story annotations.
+
+Theme choices are System, Light and Dark. Semantic tokens define both palettes,
+including contrasting on-accent text and a separate inverse systems-section
+palette. CSS provides automatic system behaviour; valid manual preferences are
+applied before paint and saved in localStorage. Controls stay native and keyboard
+accessible. No new dependency, provider or backend theme storage is needed.
+
+The implemented checkpoint passed lint, strict TypeScript, production build,
+responsive public-page and contrast checks in both palettes, preference and
+before-hydration checks, and native no-JS navigation/form flows. Production and
+localhost development checks confirmed draft focus and stale-draft removal.
+Detailed results and testing limits are recorded in `PROJECT_PROGRESS.md`.
+
+**Batch 4 (Phases 06–07) is now complete.** Current implementation and validation
+are recorded in `PROJECT_PROGRESS.md`. Batch 5 has not started; the approved
+design and six-batch roadmap are unchanged.
+
+## Historical Batch 1 positioning and design objective
 
 Bitmason Labs is a B2B digital engineering company for European SMEs. It combines
 customer-facing digital experiences, operational software and applied AI.

@@ -1,29 +1,39 @@
 import type { Metadata } from "next";
 
-import { Container } from "@/components/ui/container";
+import { Capabilities } from "@/components/home/capabilities";
+import { Company } from "@/components/home/company";
+import { Contact } from "@/components/home/contact";
+import { EngineeringApproach } from "@/components/home/engineering-approach";
+import { Hero } from "@/components/home/hero";
+import { SelectedWork } from "@/components/home/selected-work";
+import { Services } from "@/components/home/services";
+import { Systems } from "@/components/home/systems";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
+import { publicPageMetadata } from "@/lib/metadata";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Application foundation",
+  ...publicPageMetadata(site.title, site.description, "/"),
+  title: { absolute: `${site.name} — ${site.title}` },
+  description: site.description,
 };
 
-/** Temporary runtime verification route. The marketing homepage is not built. */
-export default function FoundationPage() {
+export default function HomePage() {
   return (
-    <main id="main-content" tabIndex={-1} className="py-16 sm:py-24">
-      <Container>
-        <div className="max-w-xl">
-          <p className="font-mono text-xs tracking-wider text-muted uppercase">
-            Bitmason Labs · Batch 1
-          </p>
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Application foundation ready.
-          </h1>
-          <p className="mt-5 text-muted">
-            This temporary page verifies the application setup. The homepage
-            design and content blueprint are documented in DESIGN_DIRECTION.md.
-          </p>
-        </div>
-      </Container>
-    </main>
+    <>
+      <SiteHeader />
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
+        <Company />
+        <Capabilities />
+        <Services />
+        <SelectedWork />
+        <Systems />
+        <EngineeringApproach />
+        <Contact />
+      </main>
+      <SiteFooter />
+    </>
   );
 }
