@@ -2,6 +2,138 @@
 
 Last updated: 17 November 2026 (Africa/Lagos).
 
+## Batch 5 status — Phase 08
+
+**Complete — implementation and final validation PASS.** Continued from the
+existing Batch 4 editor, authentication, transactional CRUD and portfolio image
+contracts. Privately verified R2 configuration and captured a read-only baseline
+before implementation. No environment values, existing portfolio content or
+original assets were changed. The approved six-batch plan is unchanged.
+**Stop after Batch 5 (Phase 08); Batch 6 has not started.**
+
+### Phase 08 — image management and publishing
+
+- Added a server-only AWS S3 SDK adapter for the configured Cloudflare R2 bucket.
+  It constructs the private endpoint from `R2_ACCOUNT_ID`, uses region `auto`
+  and validates `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`
+  and `R2_PUBLIC_BASE_URL`. Public URLs use `https://assets.bitmasonlabs.com`.
+  Configuration errors identify variable names without exposing their values.
+- Extended the existing editor with cover/gallery uploads, local previews,
+  progress, replacement, removal, alternative text/captions and gallery ordering.
+  Saves are blocked during uploads; failed validation/database saves preserve
+  entered details and uploaded identities. Native content/reference editing,
+  project CRUD and independent draft/published controls remain available.
+- Enforced authorization on every media endpoint and administrative storage
+  operation, with same-origin mutations and bounded multipart/JSON streams.
+  JPEG/PNG/WebP files require matching MIME, extension and actual content.
+  Complete raster decoding rejects corrupt/animated images and enforces 8 MiB,
+  8192 pixels per side and 24 megapixels. Sharp normalizes orientation, strips
+  metadata and stores WebP under server-generated UUID keys.
+- Applied only additive migration `0001_project_images`: an ownership/cleanup
+  ledger and nullable restrictive cover/gallery references. The original
+  migration was not replayed; no reseed or database reset occurred. Project
+  transactions claim scope/project-owned images, use authoritative dimensions
+  and retire objects only after their final cover/gallery reference disappears.
+- Reserved ownership before upload; conditional writes protect existing objects.
+  Failed saves roll back references and retain pending uploads. Storage cleanup
+  runs after commit, verifies ledger and R2 ownership metadata and retains failed
+  deletions for retry. Unused completed uploads expire after 24 hours;
+  interrupted uploads retain a 15-minute cleanup delay. The dashboard retries
+  queued/expired objects, up to 30 candidates per request.
+- Preserved published-only public queries, portfolio filters, case-study routes,
+  authored project previews and responsive presentation. Replacements use new
+  immutable public URLs. Missing/unavailable images display accessible
+  placeholders; failed gallery images disable both full-image links.
+
+### Batch 5 validation
+
+Verified on 17 November 2026 (Africa/Lagos), with Node.js 24.20.0 and Next.js
+16.4.6. Only generated images and disposable records were used for mutation tests.
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| Lint, TypeScript and production build | PASS | Final `npm run check`: zero ESLint errors/warnings, Next route type generation, strict `tsc --noEmit` and production Turbopack build |
+| Raster validation and reference policy | PASS | Six memory-only image tests: supported rasters, normalization, corrupt/mismatched/animated files, size/dimension limits, public reference policy and managed object ownership |
+| Existing database/CRUD regression | PASS | 13 disposable PostgreSQL checks covering existing validation, migration repeatability, draft isolation, stale edits, rollback, conflicts and deletion |
+| Media/database consistency | PASS | Eight disposable database checks: additive migration/preservation, cover/gallery claims, authoritative dimensions, scope/project isolation, restrictive references, rollback, replacement/order, shared-reference protection, expiry and deletion |
+| Authorization and failure recovery | PASS | Eight checks: independent endpoint/DAL authorization, origin/body limits, safe errors, reservation/upload/database failures, conditional collisions, interrupted cleanup, attached-object protection and queues exceeding 30 candidates |
+| Live R2 and custom-domain delivery | PASS | Three checks: authenticated upload/connectivity, delivery and content integrity through the custom domain, authorized discard and confirmed object removal |
+| Admin/browser image workflows | PASS | 14 browser checks plus two final closeout checks: previews/progress, retained uploads after errors, create/replace/order/delete, invalid/oversized files, unauthorized/cross-origin refusal, rollback, native editing, publish/unpublish, fallbacks, navigation discard, slug-confirmed deletion and logout |
+| Responsive admin and public regression | PASS | Eight editor layouts across 320/390/1024/1440px in both themes; all ten public routes, portfolio filters, current published images and responsive presentation checked |
+| Failed-upload cleanup closeout | PASS | Delayed live upload reservation recovered through authenticated cleanup: HTTP 200, removed 1, pending 0, errors 0; final ledger contains zero assets |
+| Original data and asset preservation | PASS | Exact baseline match for five projects, four categories, ten gallery images and edit versions; original local content/images/fonts and Batch 4 migration fingerprints unchanged; no temporary database records or managed R2 objects remain |
+| Environment and secret handling | PASS | `.env.local` bytes unchanged; configured `AUTH_URL` and supported owner hash retained; no configured secrets/private R2 endpoints in prospective source or browser assets; local environment and verification helpers remain ignored |
+| Dependencies | PASS | Full and production-only npm audits: zero vulnerabilities after the scoped SDK/Sharp additions; existing Batch 4 fixes retained |
+| Final Git/diff review | PASS | Full prospective diff includes inherited untracked work, checked through an isolated index; whitespace clean, HEAD and real index unchanged, zero staged files and no verification artifacts staged |
+
+Evidence remains under ignored `.local/verification/batch5/`: `baseline.json`,
+`migration-report.json`, `database-report.json`, `recovery-report.json`,
+`connectivity-report.json`, `browser/report.json`, `finish-browser-report.json`,
+`cleanup-report.json` and `review-report.json`. The baseline was never overwritten.
+Earlier partial browser reports retain failed attempts from ambiguous selectors,
+version waits and Windows browser/native-process crashes. Corrected reruns and
+the final closeout checks above supersede those attempts. A transient live R2
+upload failure retained its cleanup reservation and was recovered after its
+normal delay. Final diff review found surplus EOF blank lines in new source
+files; those were removed and the check rerun successfully. No application
+validation failure remains. Automated checks do not claim exhaustive browser
+coverage or certification.
+
+### Batch 5 remaining issues and limits
+
+No Batch 5 implementation blocker remains. Cleanup on navigation is best effort;
+after a closed browser or failed network request, use the authenticated dashboard
+cleanup control once the relevant delay expires. Retries are bounded to 30
+candidates per request; there is no background scheduler in this batch. Uploads
+require JavaScript, while existing native editing remains supported.
+
+Project pages and queries exclude drafts. R2 asset URLs are public, including
+images associated with drafts, and browser/CDN copies may remain after origin
+deletion. This is documented storage behaviour for public portfolio imagery.
+Existing local assets and unrelated bucket objects are never deleted.
+
+The Batch 4 commit is present, but Git still lists inherited implementation files
+as untracked. They were preserved and included in prospective review. Nothing
+was staged, committed, pushed or deployed. The existing legacy Drizzle loader
+deprecation is a low-severity maintenance issue; dependency audits remain clean.
+
+### Batch 5 files changed
+
+Relative to the preserved start-of-batch baseline, 30 existing files changed and
+18 files were added. This list excludes inherited untracked files that were not
+changed during Batch 5 and ignored verification reports.
+
+- Configuration/tooling: `.env.example`, `next.config.ts`, `package.json`,
+  `package-lock.json`, `scripts/test-images.ts` (new).
+- Migration/schema: `drizzle/0001_project_images.sql` (new),
+  `drizzle/meta/0001_snapshot.json` (new), `drizzle/meta/_journal.json`,
+  `src/server/db/schema.ts`.
+- Media services (all new): `src/lib/media.ts`, `src/server/storage/admin.ts`,
+  `client.ts`, `errors.ts`, `image.ts`, `references.ts`, `request.ts`.
+- Media endpoints (all new): `src/app/api/admin/images/route.ts`,
+  `src/app/api/admin/images/[id]/route.ts`,
+  `src/app/api/admin/images/discard/route.ts`,
+  `src/app/api/admin/images/cleanup/route.ts`.
+- Admin integration: `src/app/admin/actions.ts`,
+  `src/app/admin/(protected)/layout.tsx`,
+  `src/app/admin/(protected)/projects/page.tsx`,
+  `src/app/admin/(protected)/projects/new/page.tsx`,
+  `src/app/admin/(protected)/projects/[id]/edit/page.tsx`,
+  `src/components/admin/project-form.tsx`, `delete-project-form.tsx`,
+  `image-fields.tsx` (new), `image-cleanup.tsx` (new),
+  `src/lib/admin-project.ts`, `src/styles/admin.css`.
+- Portfolio integration: `src/lib/portfolio.ts`,
+  `src/server/portfolio/admin.ts`, `queries.ts`, `writer.ts`,
+  `src/components/portfolio/case-study.tsx`, `project-card.tsx`,
+  `project-preview.tsx`, `portfolio-image.tsx` (new), `gallery-image.tsx` (new),
+  `src/styles/public-pages.css`.
+- Documentation: `README.md`, `PROJECT_PROGRESS.md`, `DESIGN_DIRECTION.md`,
+  `src/server/README.md`, `src/server/db/README.md`,
+  `src/server/portfolio/README.md`, `src/server/storage/README.md`.
+
+The Batch 4 and earlier sections below are historical completed checkpoints;
+their next-batch/stop wording describes those earlier checkpoints.
+
 ## Batch 4 status — Phases 06–07
 
 **Complete — implementation and final acceptance PASS, including owner login.**

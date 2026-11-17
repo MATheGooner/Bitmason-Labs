@@ -28,4 +28,8 @@ interactive transactions. The schema and migration configuration are tooling
 entry points; they contain no credentials. Public readers always filter published
 records. `portfolio/admin.ts` authorizes every privileged operation; internal
 query/writer modules are not browser APIs. Auth.js configuration and hashing are
-server-only. Storage clients, uploads and AI execution remain unimplemented.
+server-only. Batch 5 adds server-only R2 uploads, raster decoding, transactional
+image ownership and retryable cleanup. Every media endpoint and administrative
+storage operation checks authorization; file mutations also require same origin.
+Client Components receive public URLs, image dimensions and editing identities,
+never storage credentials or private API endpoints. AI execution remains deferred.

@@ -40,9 +40,9 @@ before-hydration checks, and native no-JS navigation/form flows. Production and
 localhost development checks confirmed draft focus and stale-draft removal.
 Detailed results and testing limits are recorded in `PROJECT_PROGRESS.md`.
 
-**Batch 4 (Phases 06–07) is now complete.** Current implementation and validation
-are recorded in `PROJECT_PROGRESS.md`. Batch 5 has not started; the approved
-design and six-batch roadmap are unchanged.
+**Batches 1–5, through Phase 08, are complete.** Current implementation and
+validation are recorded in `PROJECT_PROGRESS.md`. Batch 5 preserves the approved
+design and six-batch roadmap. Batch 6 has not started.
 
 ## Historical Batch 1 positioning and design objective
 

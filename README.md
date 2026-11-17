@@ -6,13 +6,14 @@ Bitmason Labs builds websites, online stores and custom software around customer
 journeys and business operations. **Working with businesses internationally.**
 Europe remains the initial client-acquisition market, not a geographical limit.
 This repository contains the application foundation, approved design research,
-the completed public website and Batch 4 database, backend and administration.
+the completed public website, database, backend, administration and Batch 5
+image management and publishing.
 About, Services, Portfolio, five project studies and Contact reuse the established
 identity and components. The portfolio remains a collection of clearly labelled
 concepts, with no claimed commissioned client delivery or business results.
-**Batch 4 (Phases 06–07) is complete and final acceptance passed, including
-actual owner-password login and logout. This execution stops after Batch 4;
-Batch 5 has not started.**
+**Batches 1–5 are complete, including owner-password login/logout and Cloudflare
+R2 image management and publishing. Batch 5 validation passes. This execution
+stops after Batch 5 (Phase 08); Batch 6 has not started.**
 
 All public routes remain a local preview with `noindex, nofollow`. Deployment and the
 decision to enable search indexing belong to a later launch phase.
@@ -64,7 +65,7 @@ email-draft contact form need no credentials; the portfolio now needs Neon.
 Use `npm install` when intentionally changing dependencies, and
 commit the resulting `package-lock.json` with the manifest.
 
-For Batch 4, copy `.env.example` to `.env.local` and configure the database and
+For local setup, copy `.env.example` to `.env.local` and configure the database and
 administrator settings below. Preserve an existing local environment file. In PowerShell:
 
 ```powershell
@@ -92,6 +93,7 @@ components, public assets, `NEXT_PUBLIC_*` variables or committed documents.
 | `npm run db:check` | Check the configured Neon runtime connection |
 | `npm run db:seed` | Import missing concept slugs without overwriting existing projects |
 | `npm run admin:password` | Securely prompt for a password and print its salted scrypt hash |
+| `npm run test:images` | Check raster validation, normalization, reference policy and storage ownership protections with memory-only fixtures |
 
 Production verification:
 
@@ -119,7 +121,7 @@ observed during local verification; no additional tooling is needed.
 | ESLint 10 | Flat Next.js configuration; no deprecated `next lint` command |
 | Neon PostgreSQL + Drizzle | Server-only HTTP reads, transactional WebSocket writes, schema, migrations and non-destructive seed |
 | Auth.js | One environment-configured administrator, Credentials provider and encrypted JWT sessions |
-| Cloudflare R2 | Planned server boundary and variables; no client, bucket or uploads |
+| Cloudflare R2 | Server-only S3 SDK, validated uploads, ownership ledger and delivery through assets.bitmasonlabs.com |
 | Vercel | Standard Next.js build is ready for future deployment; no project connected |
 | Cloudflare DNS | Intended DNS provider; no records changed |
 | GitHub | Local Git repository initialised on `main`; no remote created or push performed |
@@ -127,7 +129,8 @@ observed during local verification; no additional tooling is needed.
 Runtime additions are Neon, Drizzle, Auth.js, Zod for nested input validation and
 Next's environment loader for consistent CLI configuration. Drizzle Kit and tsx
 are development tools. There is no UI kit, theme provider, state manager, local
-database service, Docker stack, analytics script or image SDK. Auth.js is pinned
+database service, Docker stack or analytics script. The S3 SDK handles R2 storage;
+Sharp validates and normalizes rasters using the version already used by Next.js. Auth.js is pinned
 to its documented v5 beta; there is no database user/session adapter or registration.
 
 The four moderate development-only findings from Drizzle Kit's legacy loader
@@ -190,7 +193,7 @@ src/
     portfolio/          Published-only reader, authorized admin access and transactional writer
     db/                 Lazy Neon clients and Drizzle project/category/gallery schema
     auth/               Auth.js configuration, authorization and password hashing
-    storage/            Cloudflare R2 implementation notes
+    storage/            R2 client, raster validation, ownership and cleanup services
   styles/
     globals.css         Tailwind import, design tokens and accessible base styles
     homepage.css        Responsive homepage compositions and interaction states
@@ -300,8 +303,9 @@ Generate `AUTH_SECRET` separately; this prints a newly generated secret, not a p
 Open `/admin/login`. The responsive dashboard supports search, create/edit/delete,
 draft/published and concept/completed controls, featured ordering, case-study copy,
 categories, technologies, features, use cases, cover references and ordered gallery
-metadata. Existing image references are limited to `/images/projects/` assets;
-remote storage and uploads remain Batch 5 work. Referenced files are not deleted.
+metadata. Uploads support project covers and ordered galleries, with local previews,
+progress and replacement/deletion feedback. Existing `/images/projects/` assets
+remain supported and their local files are retained.
 
 Auth.js manages encrypted, HttpOnly, SameSite sessions with an eight-hour lifetime
 and secure cookies on HTTPS. Credential or email changes invalidate existing JWTs
@@ -315,8 +319,79 @@ state, and unavailable/draft detail routes return 404 without exposing sensitive
 errors. Writes revalidate the homepage, listings and old/new detail URLs. A visitor
 who already viewed a project can still retain its content in their browser history.
 
-Validation results, test scope and remaining local access setup are recorded in
-`PROJECT_PROGRESS.md`. R2, uploads, deployment and Batch 6 work remain deferred.
+Validation results, test scope and operational limits are recorded in
+`PROJECT_PROGRESS.md`. Deployment and Batch 6 work remain deferred.
+
+## Batch 5 image storage and publishing
+
+Preserve an existing `.env.local`. Configure these server-only variables; never
+use `NEXT_PUBLIC_*` equivalents or expose the private S3 endpoint:
+
+| Variable | Purpose |
+| --- | --- |
+| `R2_ACCOUNT_ID` | Cloudflare account ID used to construct the S3 endpoint on the server |
+| `R2_ACCESS_KEY_ID` | R2 API access key scoped to the intended bucket |
+| `R2_SECRET_ACCESS_KEY` | R2 API secret; server-only |
+| `R2_BUCKET_NAME` | Existing portfolio-image bucket, with object read/write/delete permissions |
+| `R2_PUBLIC_BASE_URL` | Required public image origin: `https://assets.bitmasonlabs.com` |
+
+The adapter validates configuration lazily and reports variable names without
+credential values. Uploads travel through authenticated same-origin Route
+Handlers and the AWS S3 SDK, with region `auto`. Browser uploads do not require
+bucket CORS, signed URLs or access to the private R2 API endpoint.
+
+Run `npm run db:migrate` once to apply the additive `0001_project_images`
+migration to an existing Batch 4 database. The migrator skips the recorded
+`0000_portfolio` migration. Do not reseed or reset the database for image setup.
+The new ownership/cleanup ledger and nullable cover/gallery foreign keys preserve
+all existing records, images, slugs and edit versions.
+
+In the project editor, upload or replace a cover; add gallery rows, upload images,
+write alternative text/captions and move rows up/down or edit their display order.
+Previews and upload progress are available before saving. JavaScript is required
+for file uploads; native reference/content editing remains available. The editor
+blocks saving during an upload and retains uploaded identities after validation
+or database failures. Existing authored previews and public layouts are preserved.
+
+Files must be nonempty JPEG, PNG or WebP with matching MIME type, extension and
+file signature. The server bounds the actual multipart body and decodes the
+complete raster: maximum **8 MiB**, **8192 pixels per side** and **24 megapixels**.
+Animated and corrupt images are rejected. Sharp normalizes orientation, strips
+metadata and stores static WebP. User filenames never become storage paths;
+objects use unique `portfolio/images/<UUID>.webp` keys and immutable public URLs.
+
+Uploads reserve database ownership before writing to R2. Saving atomically checks
+the editing scope/project, attaches image references and retires removed images
+only after their final cover/gallery reference disappears. Storage deletion runs
+after commit and verifies ledger identity and R2 ownership metadata. Failed saves
+retain pending uploads; failed storage cleanup retains a retryable ledger and
+shows a separate notice without reversing the successful project save.
+
+Navigation attempts to discard unused uploads. Uncommitted uploads expire after
+24 hours; interrupted uploads retain a 15-minute delay. **Clean up unused images**
+on the authenticated dashboard retries queued deletions and removes expired
+uploads, up to 30 per request. There is no background scheduler in this batch.
+Legacy local assets and objects outside the ownership ledger are never deleted.
+
+Public readers still expose only published projects. Draft project routes return
+404. R2 image URLs are public asset URLs, including while a project is a draft;
+this bucket is intended for portfolio imagery. Replacement uses a new URL so
+published pages display the current image. Removing an R2 object does not revoke
+copies already cached by a browser or CDN. Empty/unavailable images display an
+accessible placeholder; failed gallery images disable both full-image links.
+Next.js permits only the exact asset host and managed image path, without redirects.
+
+Validation uses temporary records and generated images, cleans up their R2
+objects and verifies the original five projects, four categories and ten gallery
+images against a private baseline. No local environment values are changed.
+Lint, strict TypeScript and the production build pass. Raster validation,
+transactional database tests, authorization/failure recovery, live R2 upload and
+custom-domain delivery, cover/gallery editing, publishing, native editing and
+responsive public/admin browser checks pass. Full and production dependency
+audits contain zero vulnerabilities. Final review confirms no test records or
+managed test objects remain, original content/assets and edit versions are
+unchanged, and no secrets or verification helpers are staged. See
+`PROJECT_PROGRESS.md` for evidence, exact changed files and operational limits.
 
 ## Public routes and portfolio architecture
 
@@ -356,8 +431,7 @@ the project route returns 404. Both the reader and local catalogue are guarded b
 `server-only`. PostgreSQL now supplies these reads; the local catalogue remains
 the non-destructive seed source. See the
 [portfolio boundary notes](src/server/portfolio/README.md) for published queries,
-transactional administration and publication revalidation. Uploads and remote
-image storage remain Batch 5 work.
+transactional administration, media ownership and publication revalidation.
 
 The homepage's HTML/CSS project previews retain their established compositions.
 Dedicated portfolio pages use genuine interface captures from existing compiled
@@ -407,7 +481,8 @@ The mobile menu and service disclosures use native `details`/`summary` controls
 and work without JavaScript. The isolated mobile client component adds Escape
 handling, outside-click dismissal, focus handling, breakpoint closing and
 expanded-state announcements. Content remains visible without staged reveals.
-Local fonts and project images require no external asset requests at runtime.
+Local fonts and the original project assets remain self-hosted. Newly uploaded
+portfolio images use the configured Cloudflare R2 public asset domain.
 
 ## Design, validation and future batches
 
@@ -417,10 +492,10 @@ homepage plan. Reference screenshots are local research artefacts under the
 ignored `.local/research/` directory, never website assets.
 
 [PROJECT_PROGRESS.md](PROJECT_PROGRESS.md) records implementation and validation
-through Batch 4 (Phases 06–07), including the continuation checks and remaining
+through Batch 5 (Phase 08), including continuation checks and remaining
 launch dependencies.
 Portfolio content requires Neon; enquiry drafts still need no external service.
-Uploads and deployment remain outside the implemented batches. Batch 5 has not started.
+Image storage uses Cloudflare R2. Deployment and Batch 6 remain outside this execution.
 
 When deployment is later requested, connect the GitHub repository to Vercel,
 use `npm run build`, select Node.js 24 and configure environment variables there
