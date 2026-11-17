@@ -1,6 +1,6 @@
 # Bitmason Labs — project progress
 
-Last updated: 17 November 2026 (Africa/Lagos).
+Last updated: 18 November 2026 (Africa/Lagos).
 
 ## Batch 5 status — Phase 08
 
@@ -92,10 +92,12 @@ images associated with drafts, and browser/CDN copies may remain after origin
 deletion. This is documented storage behaviour for public portfolio imagery.
 Existing local assets and unrelated bucket objects are never deleted.
 
-The Batch 4 commit is present, but Git still lists inherited implementation files
-as untracked. They were preserved and included in prospective review. Nothing
-was staged, committed, pushed or deployed. The existing legacy Drizzle loader
-deprecation is a low-severity maintenance issue; dependency audits remain clean.
+At the original implementation closeout, the Batch 4 commit was present but Git
+still listed inherited implementation files as untracked. They were preserved
+and included in prospective review. That closeout staged or committed nothing.
+The Git completeness recovery below resolves those omitted application files.
+The existing legacy Drizzle loader deprecation remains a low-severity maintenance
+issue; the completed dependency audits are clean.
 
 ### Batch 5 files changed
 
@@ -130,6 +132,55 @@ changed during Batch 5 and ignored verification reports.
 - Documentation: `README.md`, `PROJECT_PROGRESS.md`, `DESIGN_DIRECTION.md`,
   `src/server/README.md`, `src/server/db/README.md`,
   `src/server/portfolio/README.md`, `src/server/storage/README.md`.
+
+### Batch 5 Git completeness recovery — 18 November 2026
+
+**Fresh-checkout validation PASS; staged for approval.** The 48-file Batch 5
+checkpoint is already commit `7283b58`. This recovery preserves that commit and
+recovers the 71 earlier application files that remained untracked. All 71 were
+read, classified and traced through framework entry points, local TypeScript
+imports, stylesheet imports, seed image references, documented commands and
+licence/provenance companions. None are unrelated work or temporary artifacts.
+
+Recovered files comprise three database configuration/migration-history files,
+two documented setup/database commands, six authentication/backend modules,
+11 application routes/layouts (including the icon), 30 shared components/content/
+style files and 19 public assets, licences and provenance notes. The original
+schema snapshot is a necessary versioned migration input. Published interface
+captures are portfolio assets; temporary verification captures remain excluded.
+
+The complete index contains 142 repository files. A separate checkout exported
+from the index matched every staged file and initially contained no `.env.local`,
+`.local`, `node_modules`, `.next`, `next-env.d.ts` or Git metadata. Its dependencies
+were installed from its own lockfile. Application configuration variables were
+removed from verification subprocesses; no owner credentials were copied.
+
+| Recovery check | Result | Evidence |
+| --- | --- | --- |
+| Dependency and asset completeness | PASS | Every local import resolves; all 71 recovered files have an application, tooling, migration, asset or licence/provenance dependency |
+| Fresh dependency install | PASS | Clean `npm ci --include=dev` from the exported manifest/lockfile; 398 packages installed; project dependency files unchanged |
+| Fresh lint, TypeScript and production build | PASS | `npm run check` in the isolated checkout, including all public/admin/auth/image routes; no application credentials configured |
+| Fresh image validation | PASS | Six tests pass using the isolated checkout's source and dependencies |
+| Fresh migration generation | PASS | `npm run db:generate` finds four tables and no schema changes; both migrations, snapshots and journal remain unchanged |
+| Blank-database migrations and setup | PASS | Five fixture checks: documented environment template, both migrations/four-table schema, repeat-run journal skipping, five concepts/four categories/ten gallery rows and private password CLI/verifier round-trip |
+| Staged security and whitespace | PASS | Exact recovered-file whitelist, full staged-blob secret scan, clean `git diff --cached --check` and retained ignore rules |
+| Preservation | PASS | Existing HEAD, local environment bytes and application/asset file contents preserved; only this progress document changes; no live Neon migration/reseed or R2 mutation |
+
+The database fixture uses the existing ignored PGlite test engine with the
+isolated checkout's Drizzle, migrations, schema, writer, reader and seed source.
+It adds no production dependency. Its optional test adapter was resolved to that
+test installation. The first clean install encountered Windows `EPERM` launching
+esbuild's post-install binary check; a normal retry completed successfully. Legacy
+loader and npm install-script notices remain informational maintenance items;
+all final application and setup checks pass.
+
+Final staging contains **72 files: 71 recovered additions and this progress
+document**. No inherited application file remains untracked. Local credentials,
+verification helpers/reports, dependencies and build outputs remain excluded.
+Full file classifications, the staged summary and fresh-checkout evidence are in
+ignored `.local/verification/batch5/git-recovery/`. The validation checkout and
+its generated outputs are outside the repository. No commit, push or deployment
+was performed by this recovery. **Await approval; Batch 6 has not started.**
 
 The Batch 4 and earlier sections below are historical completed checkpoints;
 their next-batch/stop wording describes those earlier checkpoints.
