@@ -11,12 +11,13 @@ image management and publishing.
 About, Services, Portfolio, five project studies and Contact reuse the established
 identity and components. The portfolio remains a collection of clearly labelled
 concepts, with no claimed commissioned client delivery or business results.
-**Batches 1–5 are complete, including owner-password login/logout and Cloudflare
-R2 image management and publishing. Batch 5 validation passes. This execution
-stops after Batch 5 (Phase 08); Batch 6 has not started.**
+**Batches 1–5 are complete. Batch 6 implements application hardening and
+production preparation; public launch remains blocked by hosting, domain and
+owner verification.** See `PROJECT_PROGRESS.md` for Phase 09–10 status.
 
-All public routes remain a local preview with `noindex, nofollow`. Deployment and the
-decision to enable search indexing belong to a later launch phase.
+Public routes remain unindexed by default. The [deployment handoff](DEPLOYMENT.md)
+records hosting settings, environment requirements, domain checks and the
+owner-controlled indexing gate.
 
 ## Pre-Batch 4 refinement checkpoint — 16 November 2026
 
@@ -94,6 +95,9 @@ components, public assets, `NEXT_PUBLIC_*` variables or committed documents.
 | `npm run db:seed` | Import missing concept slugs without overwriting existing projects |
 | `npm run admin:password` | Securely prompt for a password and print its salted scrypt hash |
 | `npm run test:images` | Check raster validation, normalization, reference policy and storage ownership protections with memory-only fixtures |
+| `npm run test:security` | Check launch-policy safeguards, trusted login-budget keys and password verification with disposable inputs |
+| `npm run production:check -- --local` | Read-only local environment, Neon migration and R2 preflight; not a deployment check |
+| `npm run production:check -- --remote` | Verify production configuration and the canonical HTTPS deployment with indexing still disabled |
 
 Production verification:
 
@@ -122,9 +126,9 @@ observed during local verification; no additional tooling is needed.
 | Neon PostgreSQL + Drizzle | Server-only HTTP reads, transactional WebSocket writes, schema, migrations and non-destructive seed |
 | Auth.js | One environment-configured administrator, Credentials provider and encrypted JWT sessions |
 | Cloudflare R2 | Server-only S3 SDK, validated uploads, ownership ledger and delivery through assets.bitmasonlabs.com |
-| Vercel | Standard Next.js build is ready for future deployment; no project connected |
+| Vercel | Node.js 24 / Next.js production preparation ready; project connection and deployment pending |
 | Cloudflare DNS | Intended DNS provider; no records changed |
-| GitHub | Local Git repository initialised on `main`; no remote created or push performed |
+| GitHub | `origin` is MATheGooner/Bitmason-Labs; Batch 6 commits are local, with no Batch 6 push performed |
 
 Runtime additions are Neon, Drizzle, Auth.js, Zod for nested input validation and
 Next's environment loader for consistent CLI configuration. Drizzle Kit and tsx
@@ -138,8 +142,9 @@ were traced to esbuild 0.18.20 and
 [GHSA-67mh-4wv8-2f99](https://github.com/advisories/GHSA-67mh-4wv8-2f99).
 The advisory affects esbuild's development server through 0.24.2; this project
 uses Turbopack, and the loader uses esbuild transforms. A scoped override now
-uses esbuild 0.25.12, already present elsewhere in the toolchain. Full and
-production audits both report zero findings. Legacy CJS/ESM transforms and
+uses esbuild 0.25.12, already present elsewhere in the toolchain. The Batch 6
+production-only audit is clean; the full audit has 14 high-severity development
+findings from unpatched picomatch (see `DEPLOYMENT.md`). Legacy CJS/ESM transforms and
 Drizzle generation were checked; migration SQL and schema definitions are
 unchanged. No direct dependency upgrade or migration rerun was needed. Do not
 use `npm audit fix --force` to downgrade Drizzle Kit to 0.18.1.
@@ -320,7 +325,7 @@ errors. Writes revalidate the homepage, listings and old/new detail URLs. A visi
 who already viewed a project can still retain its content in their browser history.
 
 Validation results, test scope and operational limits are recorded in
-`PROJECT_PROGRESS.md`. Deployment and Batch 6 work remain deferred.
+`PROJECT_PROGRESS.md`. Batch 6 preparation is implemented; public launch remains blocked.
 
 ## Batch 5 image storage and publishing
 
@@ -355,7 +360,7 @@ or database failures. Existing authored previews and public layouts are preserve
 
 Files must be nonempty JPEG, PNG or WebP with matching MIME type, extension and
 file signature. The server bounds the actual multipart body and decodes the
-complete raster: maximum **8 MiB**, **8192 pixels per side** and **24 megapixels**.
+complete raster: maximum **4 MiB**, **8192 pixels per side** and **24 megapixels**.
 Animated and corrupt images are rejected. Sharp normalizes orientation, strips
 metadata and stores static WebP. User filenames never become storage paths;
 objects use unique `portfolio/images/<UUID>.webp` keys and immutable public URLs.
@@ -495,9 +500,9 @@ ignored `.local/research/` directory, never website assets.
 through Batch 5 (Phase 08), including continuation checks and remaining
 launch dependencies.
 Portfolio content requires Neon; enquiry drafts still need no external service.
-Image storage uses Cloudflare R2. Deployment and Batch 6 remain outside this execution.
+Image storage uses Cloudflare R2. Batch 6 prepares launch; deployment remains pending.
 
-When deployment is later requested, connect the GitHub repository to Vercel,
+To finish deployment, follow `DEPLOYMENT.md` and connect the GitHub repository to Vercel,
 use `npm run build`, select Node.js 24 and configure environment variables there
 only for implemented features. Obtain the required domain records from Vercel
 before changing Cloudflare DNS; no speculative DNS or deployment configuration

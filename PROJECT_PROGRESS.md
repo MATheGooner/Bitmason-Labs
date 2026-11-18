@@ -2,6 +2,89 @@
 
 Last updated: 18 November 2026 (Africa/Lagos).
 
+## Batch 6 status — Phases 09–10
+
+**Application hardening and deployment preparation implemented; public launch
+remains blocked.** The six-batch roadmap and existing architecture are unchanged.
+The Batch 5 recovery is secured as `9cb0b5b`, with the requested commit message,
+the exact validated 72-file set and matching recovery tree. No duplicate commit,
+amendment or history rewrite was needed. Earlier stop/approval wording below is
+historical and is superseded by this section.
+Implementation checkpoint: `bf86fd8` — security and production readiness checks.
+
+### Phase 09 — optimization and security
+
+- Added atomic PostgreSQL login budgets at the Credentials provider boundary:
+  five attempts per client and 50 globally per ten minutes, shared by HTTP
+  callbacks and Server Actions. Only Vercel's trusted address header is used;
+  other hosts share a fallback budget. Expiring HMAC keys hide addresses, and
+  unavailable protection fails closed. Applied additive migration
+  `0002_admin_login_limits`; existing migration history and portfolio data remain
+  unchanged. No reset, reseed or credential replacement occurred.
+- Added CSP, anti-framing, MIME-sniffing, referrer and permissions headers;
+  disabled the framework identification header. Hosted production adds HSTS.
+  Admin/API responses stay private and unindexed. Inline scripts/styles remain
+  permitted for the established static rendering and theme initialization;
+  production does not permit eval.
+- Reduced validated uploads from 8 to 4 MiB to fit Vercel's 4.5 MB request limit,
+  including multipart overhead. Existing R2 objects are unchanged. Added query
+  deadlines, admin/media function duration settings, a cleanup time budget and
+  a shared HEAD/DELETE deadline; pending cleanup remains safely retryable.
+- Prepared canonical/social metadata, a generated brand sharing image, robots
+  and a request-time published-only sitemap. Indexing is disabled by default and
+  requires an explicit production flag plus the canonical HTTPS origin. Preview,
+  admin and API indexing remain disabled. Drafts stay excluded from public data.
+- Preserved the design, authored content, self-hosted fonts, accessible native
+  controls, five concept studies, database records and original image assets.
+
+### Phase 10 — deployment and launch readiness
+
+Prepared `.vercelignore`, the environment template, a read-only
+`production:check` command and [the deployment handoff](DEPLOYMENT.md). The checker
+verifies configuration, Neon/R2 connectivity and migration history; remote mode
+also checks published routes, security headers, canonical redirects, protected
+administration and delivered HTML/robots policy. It rejects stale noindex HTML
+when an indexed launch is requested.
+
+GitHub repository access is verified. Vercel is available but not connected;
+there is no local linked project or Vercel credential. The canonical website is
+unavailable, and the apex/www web DNS checks remain unresolved. The asset domain
+delivers images. Zoho MX records exist, but inbox delivery is unverified.
+The local `AUTH_URL` remains local and cannot pass production-origin validation.
+No push, deployment, DNS mutation, email delivery or public indexing is claimed.
+
+### Batch 6 validation
+
+| Check | Result | Evidence |
+| --- | --- | --- |
+| Recovery checkpoint | PASS | Exact 72-file recovery tree and requested message in `9cb0b5b` |
+| Lint, strict TypeScript and production build | PASS | Completed `check`; final script changes also checked with lint/TypeScript |
+| Image and security checks | PASS | Six image tests and four security tests, including stale HTML/header indexing disagreement |
+| Login migration and concurrency | PASS | Five disposable PostgreSQL checks: additive/repeatable migrations, client/global budgets, expiry and blank-database setup |
+| Cleanup duration and retry safety | PASS | Two disposable fixture checks: slow cleanup retains remaining rows and later retries clear the queue |
+| Public/admin browser regressions | PASS | Existing Batch 6 reports: 40 public and 24 admin layouts, selected axe checks, CSP/hydration, native forms, protected uploads/replacement/order and publishing |
+| Configured Neon/R2 preflight | PASS | Fresh read-only local preflight: intended database, all three migrations, login schema, published data and bucket connectivity |
+| Portfolio preservation | PASS | Fresh fingerprint/count comparison: five projects, four categories, ten gallery images and zero managed test assets |
+| Secrets, assets and Git exclusions | PASS | Local environment bytes and original assets/content/migrations unchanged; configured private values absent from prospective changes and 19 browser chunks; credentials and verification output remain ignored |
+| Production dependency audit | PASS | Zero reported production vulnerabilities |
+| Full dependency audit | FAIL | 14 high-severity development findings from [picomatch GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf); no patched release listed; no forced framework downgrade |
+| Production launch | FAIL / BLOCKED | Vercel connection/deployment, production environment, canonical DNS/TLS and owner checks outstanding |
+
+Verification reports remain ignored under `.local/verification/batch6/`.
+Windows execution-policy/native-process failures were retried with direct CLI
+invocations; only completed checks are counted above. Local browser performance
+measurements are not field Core Web Vitals or proof of a hosted deployment.
+
+### Required owner actions
+
+Follow `DEPLOYMENT.md`: connect/import the intended Vercel account and reviewed
+source, securely configure Production variables, deploy with indexing disabled,
+apply only the actual DNS records supplied by that project, and verify DNS/TLS,
+the remote preflight, owner-password login/logout and actual inbox delivery.
+Approve final company/contact/concept/legal content before enabling indexing
+and rebuilding. Recheck the development dependency advisory for an upstream fix.
+**Batch 6 and public launch are not complete while these blockers remain.**
+
 ## Batch 5 status — Phase 08
 
 **Complete — implementation and final validation PASS.** Continued from the

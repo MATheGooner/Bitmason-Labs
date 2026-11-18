@@ -42,7 +42,8 @@ Detailed results and testing limits are recorded in `PROJECT_PROGRESS.md`.
 
 **Batches 1–5, through Phase 08, are complete.** Current implementation and
 validation are recorded in `PROJECT_PROGRESS.md`. Batch 5 preserves the approved
-design and six-batch roadmap. Batch 6 has not started.
+design and six-batch roadmap. Batch 6 implements security and deployment
+preparation; public launch remains pending.
 
 ## Historical Batch 1 positioning and design objective
 

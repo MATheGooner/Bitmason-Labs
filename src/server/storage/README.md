@@ -7,7 +7,7 @@ endpoint from `R2_ACCOUNT_ID` and uses the AWS S3 SDK with region `auto`.
 private endpoints, bucket paths or provider error objects reach browser responses.
 
 `image.ts` verifies file size, extension, MIME and signature, then decodes the
-complete raster with Sharp. Static JPEG/PNG/WebP, up to 8 MiB, 8192 pixels per
+complete raster with Sharp. Static JPEG/PNG/WebP, up to 4 MiB, 8192 pixels per
 side and 24 megapixels, are normalized into metadata-free WebP. Actual request
 streams are bounded before multipart parsing. No browser S3 access, presigning,
 additional provider or bucket CORS changes are needed.

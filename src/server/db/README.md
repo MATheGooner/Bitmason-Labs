@@ -13,7 +13,9 @@
 - `client.ts` provides lazy HTTP reads and request-scoped WebSocket pools,
   with Node 24's native WebSocket and guaranteed cleanup. Writers use interactive
   transactions; row locking and version checks prevent stale saves.
-- `drizzle.config.ts` and the `0000_portfolio` / `0001_project_images` migrations are versioned tooling.
+- `drizzle.config.ts` and migrations `0000_portfolio`, `0001_project_images`
+  and `0002_admin_login_limits` are versioned tooling. Batch 6 adds only expiring
+  login-budget keys; original portfolio records and image references are preserved.
   Run migrations deliberately; never on page requests or during `next build`.
 - Validate connection URLs without including their contents in errors or logs.
 

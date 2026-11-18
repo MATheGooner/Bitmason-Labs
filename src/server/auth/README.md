@@ -17,6 +17,10 @@ there is no registration, account database or user-management interface.
   lifetime; HTTPS uses secure cookies. Email/hash changes invalidate older tokens.
 - Authorise every sensitive Route Handler or Server Action. Hiding controls in
   the UI or checking a session only in navigation does not secure a resource.
+- Batch 6 persists atomic login budgets in PostgreSQL: five attempts per client
+  and 50 globally per ten minutes. Expiring HMAC keys retain no raw addresses;
+  only Vercel's trusted header selects a client, and other hosts share a budget.
+  Missing database/schema protection fails closed at the Credentials provider.
 
 Run `npm run admin:password` or the explicit PowerShell command in README.
 The hidden prompt never echoes or writes the plaintext; only a scrypt hash is
