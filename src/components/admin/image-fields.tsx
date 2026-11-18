@@ -23,7 +23,7 @@ function UploadField({ image, editing, label, onChange }: { image: ProjectImage;
     if (!file) return;
     setMessage(""); setError(false);
     if (!IMAGE_ACCEPT.split(",").includes(file.type) || !file.size || file.size > MAX_IMAGE_BYTES) {
-      setError(true); setMessage("Choose a nonempty JPEG, PNG or WebP no larger than 8 MB."); return;
+      setError(true); setMessage("Choose a nonempty JPEG, PNG or WebP no larger than 4 MB."); return;
     }
     setPreview(URL.createObjectURL(file)); setProgress(0); editing.onBusy(1);
     const data = new FormData(); data.set("file", file); data.set("scopeId", editing.scopeId);

@@ -5,6 +5,7 @@ import { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { optionalServerEnv } from "@/server/env";
 import { passwordHashPattern, verifyPassword } from "./password";
+import { allowAdminLoginAttempt } from "./rate-limit";
 
 export function authConfigured(): boolean {
   return Boolean((optionalServerEnv("AUTH_SECRET")?.length ?? 0) >= 32
@@ -22,9 +23,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth(() => ({
   session: { strategy: "jwt", maxAge: 8 * 60 * 60 },
   providers: [Credentials({
     credentials: { email: { type: "email" }, password: { type: "password" } },
-    async authorize(credentials) {
+    async authorize(credentials, request) {
       if (!authConfigured() || typeof credentials.email !== "string" || typeof credentials.password !== "string"
         || credentials.email.length > 254 || credentials.password.length > 256) return null;
+      // Provider-level protection covers both HTTP callbacks and Server Actions.
+      if (!(await allowAdminLoginAttempt(request))) return null;
       // Always do the password work for a valid request, even with a wrong email.
       const valid = await verifyPassword(credentials.password, optionalServerEnv("ADMIN_PASSWORD_HASH")!);
       const email = optionalServerEnv("ADMIN_EMAIL")!.toLowerCase();

@@ -13,6 +13,8 @@
     "db:check": "node --conditions=react-server --import tsx scripts/database.ts check",
     "admin:password": "node --conditions=react-server --import tsx scripts/admin-password.ts",
     "test:images": "node --conditions=react-server --import tsx scripts/test-images.ts",
+    "test:security": "node --conditions=react-server --import tsx scripts/test-security.ts",
+    "production:check": "node --conditions=react-server --import tsx scripts/check-production.ts",
     "build": "node node_modules/next/dist/bin/next build",
     "start": "node node_modules/next/dist/bin/next start",
     "lint": "node node_modules/eslint/bin/eslint.js . --max-warnings=0",

@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { SkipLink } from "@/components/layout/skip-link";
 import { site } from "@/lib/site";
 import { themeInitialisationScript } from "@/lib/theme";
+import { siteIndexingEnabled } from "@/server/launch-policy";
 import "@/styles/globals.css";
 
 const manrope = localFont({
@@ -31,8 +32,8 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
-  // Keep previews unindexed. Revisit deliberately during launch preparation.
-  robots: { index: false, follow: false },
+  // The owner enables indexing only after the production launch checks pass.
+  robots: { index: siteIndexingEnabled(process.env), follow: siteIndexingEnabled(process.env) },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

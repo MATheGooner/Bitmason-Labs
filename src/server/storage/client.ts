@@ -1,6 +1,6 @@
 import "server-only";
 import { createHash } from "node:crypto";
-import { DeleteObjectCommand, HeadObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, HeadBucketCommand, HeadObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { ASSET_PUBLIC_ORIGIN, MEDIA_OWNER, mediaKeyPattern } from "@/lib/media";
 import { optionalServerEnv } from "@/server/env";
 import { MediaError, ObjectCollisionError } from "./errors";
@@ -34,6 +34,15 @@ function connection() {
 }
 
 export interface StoredObject { id: string; objectKey: string; sha256: string; byteSize: number; etag: string | null }
+
+/** Read-only deployment preflight; no objects or credentials are returned. */
+export async function checkImageStorageConnection(): Promise<void> {
+  const { client, config } = connection();
+  try { await client.send(new HeadBucketCommand({ Bucket: config.bucket }), { abortSignal: AbortSignal.timeout(10_000) }); }
+  catch { throw new MediaError("Image storage connectivity could not be verified. Check the configured bucket and token permissions.", 503); }
+  finally { client.destroy(); }
+}
+
 function assertKey(asset: Pick<StoredObject, "id" | "objectKey">) {
   if (asset.objectKey.match(mediaKeyPattern)?.[1] !== asset.id) throw new MediaError("The image does not have a managed storage identity.", 409);
 }
@@ -62,15 +71,17 @@ export async function putImageObject(asset: StoredObject, body: Buffer): Promise
 export async function deleteImageObject(asset: StoredObject): Promise<void> {
   assertKey(asset);
   const { client, config } = connection();
+  // HEAD and DELETE share a deadline; slow storage cannot double the budget.
+  const abortSignal = AbortSignal.timeout(20_000);
   try {
     let head;
-    try { head = await client.send(new HeadObjectCommand({ Bucket: config.bucket, Key: asset.objectKey }), { abortSignal: AbortSignal.timeout(20_000) }); }
+    try { head = await client.send(new HeadObjectCommand({ Bucket: config.bucket, Key: asset.objectKey }), { abortSignal }); }
     catch (error) { if (statusOf(error) === 404) return; throw error; }
     if (head.Metadata?.owner !== MEDIA_OWNER || head.Metadata?.["asset-id"] !== asset.id || head.Metadata?.sha256 !== asset.sha256
       || head.ContentType !== "image/webp" || head.ContentLength !== asset.byteSize || (asset.etag && head.ETag !== asset.etag)) {
       throw new MediaError("Image cleanup is paused because object ownership could not be verified.", 409);
     }
-    await client.send(new DeleteObjectCommand({ Bucket: config.bucket, Key: asset.objectKey }), { abortSignal: AbortSignal.timeout(20_000) });
+    await client.send(new DeleteObjectCommand({ Bucket: config.bucket, Key: asset.objectKey }), { abortSignal });
   } catch (error) {
     if (error instanceof MediaError) throw error;
     throw new MediaError("Image cleanup could not complete. Check the R2 connection and bucket permissions, then retry cleanup.", 503);

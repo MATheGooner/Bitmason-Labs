@@ -15,6 +15,13 @@
       "when": 1794917079694,
       "tag": "0001_project_images",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794961682924,
+      "tag": "0002_admin_login_limits",
+      "breakpoints": true
     }
   ]
 }

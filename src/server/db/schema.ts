@@ -7,6 +7,17 @@ export const publicationStatus = pgEnum("publication_status", ["draft", "publish
 export const galleryKind = pgEnum("gallery_kind", ["interface", "photograph"]);
 export const mediaState = pgEnum("media_state", ["uploading", "ready", "attached", "deleting"]);
 
+/** Short-lived HMAC keys only; never store credentials or raw client addresses. */
+export const adminLoginLimits = pgTable("admin_login_limits", {
+  key: text("key").primaryKey(),
+  attempts: integer("attempts").notNull(),
+  expiresAt: timestamp("expires_at", { withTimezone: true, mode: "date", precision: 3 }).notNull(),
+}, (table) => [
+  index("admin_login_limits_expiry_idx").on(table.expiresAt),
+  check("admin_login_limits_key", sql`${table.key} ~ '^[a-f0-9]{64}$'`),
+  check("admin_login_limits_attempts", sql`${table.attempts} BETWEEN 1 AND 51`),
+]);
+
 /** Ownership and cleanup ledger. Live image references below use restrictive FKs. */
 export const mediaAssets = pgTable("portfolio_media_assets", {
   id: uuid("id").primaryKey(),

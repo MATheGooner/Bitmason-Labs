@@ -3,6 +3,7 @@ import { authorizeImageRequest, imageError, imageForm, imageResponse } from "@/s
 import { MediaError } from "@/server/storage/errors";
 
 export const runtime = "nodejs";
+export const maxDuration = 120;
 export async function POST(request: Request) {
   try {
     await authorizeImageRequest(request);

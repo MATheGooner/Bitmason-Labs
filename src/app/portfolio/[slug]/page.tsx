@@ -13,8 +13,9 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const project = await getPublishedProject((await params).slug);
   if (!project) notFound();
   const title = `${project.name} — ${project.status === "concept" ? "concept study" : "project study"}`;
-  const metadata = publicPageMetadata(title, project.summary, projectHref(project));
-  return { ...metadata, openGraph: { ...metadata.openGraph, images: [{ url: project.cover.src, width: project.cover.width, height: project.cover.height, alt: project.cover.alt }] } };
+  return publicPageMetadata(title, project.summary, projectHref(project), {
+    url: project.cover.src || "/opengraph-image", width: project.cover.width, height: project.cover.height, alt: project.cover.alt,
+  });
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

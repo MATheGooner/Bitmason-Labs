@@ -18,7 +18,7 @@ export async function loginAdmin(_previous: { message: string; email: string }, 
   try {
     await signIn("credentials", { email, password: form.get("password"), redirectTo: "/admin/projects" });
   } catch (error) {
-    if (error instanceof AuthError) return { message: "Unable to sign in. Check your credentials and try again.", email };
+    if (error instanceof AuthError) return { message: "Unable to sign in. Check your credentials, or wait 10 minutes after repeated attempts.", email };
     throw error;
   }
   return { message: "", email };
@@ -45,6 +45,7 @@ function safeMutationError(error: unknown) {
 function refreshPortfolio(slug: string, previousSlug?: string) {
   revalidatePath("/");
   revalidatePath("/portfolio");
+  revalidatePath("/sitemap.xml");
   revalidatePath(`/portfolio/${slug}`);
   if (previousSlug && previousSlug !== slug) revalidatePath(`/portfolio/${previousSlug}`);
   revalidatePath("/admin/projects", "layout");

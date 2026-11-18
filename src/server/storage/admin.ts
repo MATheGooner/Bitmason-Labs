@@ -64,12 +64,15 @@ export async function uploadAdminImage(file: File, input: unknown): Promise<Uplo
 /** Queued/expired objects only. Attached references are checked again under a row lock. */
 export async function cleanupAdminImages(onlyIds?: string[]): Promise<ImageCleanupResult> {
   await requireAdmin();
+  const deadline = Date.now() + 30_000;
   if (onlyIds && (!onlyIds.length || onlyIds.some((id) => !z.uuid().safeParse(id).success))) return { removed: 0, pending: 0, errors: 0 };
   const candidates = await publicDatabase().select({ id: mediaAssets.id }).from(mediaAssets)
     .where(and(eq(mediaAssets.createdBy, MEDIA_OWNER), ne(mediaAssets.state, "attached"), lte(mediaAssets.cleanupAfter, new Date()), onlyIds ? inArray(mediaAssets.id, onlyIds) : undefined))
     .orderBy(asc(mediaAssets.cleanupAfter), asc(mediaAssets.id)).limit(30);
   const result: ImageCleanupResult = { removed: 0, pending: 0, errors: 0 };
   for (const { id } of candidates) {
+    // Finish the current object safely, then leave remaining candidates for retry.
+    if (Date.now() >= deadline) break;
     try {
       const asset = await withWriteDatabase((db) => db.transaction(async (tx) => {
         const [row] = await tx.select().from(mediaAssets).where(eq(mediaAssets.id, id)).for("update");

@@ -6,7 +6,7 @@ import { MediaError } from "./errors";
 
 /** Decode the complete raster, then strip metadata and normalize orientation into WebP. */
 export async function prepareImage(file: File) {
-  if (!file.size || file.size > MAX_IMAGE_BYTES) throw new MediaError("Choose a nonempty image no larger than 8 MB.", 413);
+  if (!file.size || file.size > MAX_IMAGE_BYTES) throw new MediaError("Choose a nonempty image no larger than 4 MB.", 413);
   const types: Record<string, { extensions: string[]; format: string }> = {
     "image/jpeg": { extensions: ["jpg", "jpeg"], format: "jpeg" },
     "image/png": { extensions: ["png"], format: "png" },
@@ -28,7 +28,7 @@ export async function prepareImage(file: File) {
       throw new MediaError("Use a static image up to 8192 pixels per side and 24 megapixels.");
     }
     const { data: body, info } = await image.rotate().webp({ quality: 88, effort: 4 }).toBuffer({ resolveWithObject: true });
-    if (!body.length || body.length > MAX_IMAGE_BYTES) throw new MediaError("The processed image exceeds 8 MB. Choose a smaller image.", 413);
+    if (!body.length || body.length > MAX_IMAGE_BYTES) throw new MediaError("The processed image exceeds 4 MB. Choose a smaller image.", 413);
     return { body, width: info.width, height: info.height, byteSize: body.length, mimeType: "image/webp" as const, sha256: createHash("sha256").update(body).digest("hex") };
   } catch (error) {
     if (error instanceof MediaError) throw error;
