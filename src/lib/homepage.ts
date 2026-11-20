@@ -2,21 +2,18 @@
 
 export const capabilities = [
   {
-    number: "01",
     title: "Digital experiences",
     description: "Help customers discover your business, understand your offer and take the next step: enquire, buy or book.",
     detail: "Websites · E-commerce · Customer applications",
     icon: "experience",
   },
   {
-    number: "02",
     title: "Software engineering",
     description: "Give your team tools that fit the work. Connect customer records, everyday processes and existing platforms in useful business software.",
     detail: "Business systems · Dashboards · Integrations",
     icon: "systems",
   },
   {
-    number: "03",
     title: "AI-powered solutions",
     description: "Put intelligence to practical use. Add assistants, agents and automation to business applications, with clear boundaries and human oversight.",
     detail: "Assistants · Agents · Workflow automation",

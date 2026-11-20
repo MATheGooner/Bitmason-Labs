@@ -1,7 +1,7 @@
 /** Public brand details only. Keep credentials and operational config in server/. */
 export const site = {
   name: "Bitmason Labs",
-  url: "https://bitmasonlabs.com",
+  url: "https://www.bitmasonlabs.com",
   tagline: "From customer interest to everyday operations.",
   title: "Websites & business software",
   // Business enquiry inbox confirmed by the owner on 15 November 2026.

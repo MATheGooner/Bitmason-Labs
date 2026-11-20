@@ -11,16 +11,15 @@ export function ServiceDirectory() {
     <section id="service-directory" tabIndex={-1} className="service-directory section-space" aria-labelledby="directory-title">
       <Container>
         <div className="section-introduction">
-          <div><SectionLabel number="02">Services in detail</SectionLabel><SectionHeading id="directory-title">A practical scope.<br />A clear purpose.</SectionHeading></div>
+          <div><SectionLabel>Services in detail</SectionLabel><SectionHeading id="directory-title">A practical scope.<br />A clear purpose.</SectionHeading></div>
           <p>Choose a starting point below. A project can bring several services together around one business need.</p>
         </div>
         <div className="service-detail-list">
-          {services.map((service, index) => {
+          {services.map((service) => {
             const detail = serviceDetails[service.id];
             return (
               <article id={service.id} tabIndex={-1} className="service-detail" key={service.id} aria-labelledby={`${service.id}-title`}>
                 <div className="service-detail-heading">
-                  <span className="technical-label">{String(index + 1).padStart(2, "0")}</span>
                   <h3 id={`${service.id}-title`}>{service.title}</h3>
                   <p>{service.description}</p>
                 </div>

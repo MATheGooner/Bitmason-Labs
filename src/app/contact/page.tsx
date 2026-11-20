@@ -18,7 +18,7 @@ export default function ContactPage() {
               <p className="technical-label">A useful first conversation</p>
               <h2>Start with what you know.</h2>
               <p>You don’t need a finished specification. A little context about the business, the task and the intended timeline gives us a useful starting point.</p>
-              <ol><li><span>01</span> Share your requirements.</li><li><span>02</span> Review the prepared draft.</li><li><span>03</span> Send it from your email app.</li></ol>
+              <ul className="contact-enquiry-steps" role="list"><li>Share your requirements.</li><li>Review the prepared draft.</li><li>Send it from your email app.</li></ul>
               <div className="contact-direct"><h3>Prefer to email directly?</h3><a href={`mailto:${site.email}`} className="contact-email">{site.email}</a><a href={projectEnquiryHref} className="text-link">Open a project email draft <span aria-hidden="true">↗</span></a><p>Working with businesses internationally.</p></div>
             </div>
             <EnquiryForm />

@@ -1,3 +1,4 @@
 import { redirect } from "next/navigation";
 import { requireAdminPage } from "@/server/auth/authorization";
-export default async function AdminPage() { await requireAdminPage(); redirect("/admin/projects"); }
+import { adminPageHref } from "@/server/auth/origin";
+export default async function AdminPage() { await requireAdminPage(); redirect(adminPageHref("/admin/projects", process.env)); }

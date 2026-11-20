@@ -6,7 +6,7 @@ export function Company() {
   return (
     <section id="company" tabIndex={-1} className="company-section section-space" aria-labelledby="company-title">
       <Container className="company-grid">
-        <div><SectionLabel number="01">The company</SectionLabel><BrandMark className="company-mark" /></div>
+        <div><SectionLabel>The company</SectionLabel><BrandMark className="company-mark" /></div>
         <div>
           <SectionHeading id="company-title">An engineering partner for the way your business works.</SectionHeading>
           <div className="company-body">

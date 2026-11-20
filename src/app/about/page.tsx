@@ -28,7 +28,7 @@ export default function AboutPage() {
       <section className="about-philosophy section-space" aria-labelledby="philosophy-title">
         <Container>
           <div className="editorial-split">
-            <div><SectionLabel number="01">Engineering philosophy</SectionLabel><SectionHeading id="philosophy-title">Understand the work.<br />Then build the right thing.</SectionHeading></div>
+            <div><SectionLabel>Engineering philosophy</SectionLabel><SectionHeading id="philosophy-title">Understand the work.<br />Then build the right thing.</SectionHeading></div>
             <div className="editorial-body">
               <p>A website is often the beginning of a wider system. Behind an enquiry, purchase or booking sit business records, team decisions and tools that need to connect.</p>
               <p>We consider that whole picture. Start with the problem, choose a practical scope and give the customer experience the same care as the software behind it.</p>
@@ -40,10 +40,10 @@ export default function AboutPage() {
       </section>
       <section className="about-values section-space" aria-labelledby="values-title">
         <Container>
-          <div className="section-introduction"><div><SectionLabel number="02">Working principles</SectionLabel><SectionHeading id="values-title">The details that guide the work.</SectionHeading></div><p>These principles shape how we scope, develop and hand over a project.</p></div>
-          <ol className="values-list">
-            {companyValues.map((value, index) => <li key={value.title}><span className="technical-label">0{index + 1}</span><div><h3>{value.title}</h3><p>{value.description}</p></div></li>)}
-          </ol>
+          <div className="section-introduction"><div><SectionLabel>Working principles</SectionLabel><SectionHeading id="values-title">The details that guide the work.</SectionHeading></div><p>These principles shape how we scope, develop and hand over a project.</p></div>
+          <ul className="values-list" role="list">
+            {companyValues.map((value) => <li key={value.title}><div><h3>{value.title}</h3><p>{value.description}</p></div></li>)}
+          </ul>
         </Container>
       </section>
       <EngineeringApproach />

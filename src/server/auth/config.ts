@@ -6,6 +6,11 @@ import Credentials from "next-auth/providers/credentials";
 import { optionalServerEnv } from "@/server/env";
 import { passwordHashPattern, verifyPassword } from "./password";
 import { allowAdminLoginAttempt } from "./rate-limit";
+import { adminRedirect, configureAuthOrigin } from "./origin";
+
+// Run before NextAuth: callback-only correction would leave provider URLs and
+// secure-cookie detection using the stale environment origin.
+configureAuthOrigin(process.env);
 
 export function authConfigured(): boolean {
   return Boolean((optionalServerEnv("AUTH_SECRET")?.length ?? 0) >= 32
@@ -45,8 +50,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth(() => ({
       return session;
     },
     redirect({ url, baseUrl }) {
-      const target = new URL(url, baseUrl);
-      return target.origin === baseUrl && /^\/admin(?:\/|$)/.test(target.pathname) ? target.href : `${baseUrl}/admin/projects`;
+      return adminRedirect(url, baseUrl, process.env);
     },
   },
   logger: { error: (error) => console.error(`Administrative authentication failed: ${error instanceof AuthError ? error.type : "Unknown"}.`) },

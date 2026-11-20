@@ -1,4 +1,4 @@
-# Design reference evidence
+# Design research evidence
 
 Reviewed on 14 November 2026. The main synthesis and source links are in
 [`DESIGN_DIRECTION.md`](../../DESIGN_DIRECTION.md).

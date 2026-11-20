@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { authConfigured, signIn, signOut } from "@/server/auth/config";
 import { requireAdmin, UnauthorizedError } from "@/server/auth/authorization";
+import { adminPageHref } from "@/server/auth/origin";
 import { deleteAdminProject, saveAdminProject } from "@/server/portfolio/admin";
 import { ProjectConflictError } from "@/server/portfolio/writer";
 import { formErrors, parseProjectValues, readProjectForm } from "@/lib/admin-project";
@@ -16,7 +17,7 @@ export async function loginAdmin(_previous: { message: string; email: string }, 
   const email = typeof form.get("email") === "string" ? String(form.get("email")).trim().slice(0, 254) : "";
   if (!authConfigured()) return { message: "Administrative access is not configured. Contact the site owner.", email };
   try {
-    await signIn("credentials", { email, password: form.get("password"), redirectTo: "/admin/projects" });
+    await signIn("credentials", { email, password: form.get("password"), redirectTo: adminPageHref("/admin/projects", process.env) });
   } catch (error) {
     if (error instanceof AuthError) return { message: "Unable to sign in. Check your credentials, or wait 10 minutes after repeated attempts.", email };
     throw error;
@@ -25,7 +26,7 @@ export async function loginAdmin(_previous: { message: string; email: string }, 
 }
 
 export async function logoutAdmin() {
-  await signOut({ redirectTo: "/admin/login" });
+  await signOut({ redirectTo: adminPageHref("/admin/login", process.env) });
 }
 
 function safeMutationError(error: unknown) {

@@ -84,14 +84,21 @@ async function main() {
       }
       return true;
     });
-    await check("WWW redirects to the canonical HTTPS origin", async () => {
-      const page = await fetch("https://www.bitmasonlabs.com", { redirect: "manual", signal: AbortSignal.timeout(10_000) });
+    await check("Apex domain redirects to the canonical WWW HTTPS origin", async () => {
+      const page = await fetch("https://bitmasonlabs.com", { redirect: "manual", signal: AbortSignal.timeout(10_000) });
       return [301, 308].includes(page.status) && new URL(page.headers.get("location") ?? "").origin === site.url;
     });
     await check("Production administration requires authentication and stays unindexed", async () => {
       const page = await response("/admin/projects");
-      return [302, 303, 307, 308].includes(page.status) && new URL(page.headers.get("location") ?? "", site.url).pathname === "/admin/login"
+      const destination = new URL(page.headers.get("location") ?? "", site.url);
+      return [302, 303, 307, 308].includes(page.status) && destination.origin === site.url && destination.pathname === "/admin/login"
         && Boolean(page.headers.get("x-robots-tag")?.includes("noindex"));
+    });
+    await check("Production Auth.js provider URLs use canonical HTTPS", async () => {
+      const page = await response("/api/auth/providers");
+      const providers = await page.json();
+      return page.status === 200 && providers.credentials?.signinUrl === `${site.url}/api/auth/signin/credentials`
+        && providers.credentials?.callbackUrl === `${site.url}/api/auth/callback/credentials`;
     });
     await check("Production robots policy matches the intended launch state", async () => {
       const page = await response("/robots.txt");

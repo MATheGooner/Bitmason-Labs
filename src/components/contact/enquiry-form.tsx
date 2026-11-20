@@ -51,7 +51,7 @@ export function EnquiryForm() {
             <div className="form-field"><label htmlFor="timeline">Preferred timeline <span className="field-optional">Optional</span></label><select id="timeline" name="timeline" defaultValue={state.values.timeline} aria-invalid={Boolean(state.errors.timeline) || undefined} aria-describedby={describedBy("timeline")}><option value="">To discuss</option>{timelineOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select>{errorFor("timeline")}</div>
             <div className="form-field form-field-wide"><label htmlFor="message">Project brief <span aria-hidden="true">*</span></label><p className="field-hint" id="message-hint">What should work better? Share the requirements, current tools and any useful context. 20–2,000 characters.</p><textarea id="message" name="message" rows={6} required minLength={20} maxLength={enquiryLimits.message} defaultValue={state.values.message} aria-invalid={Boolean(state.errors.message) || undefined} aria-describedby={describedBy("message", "message-hint")} />{errorFor("message")}</div>
           </div>
-          <p className="form-data-note" id="enquiry-form-note">Your details are processed to validate and prepare an email draft. This website does not save the enquiry or send it. Your email app sends the message when you choose. Please leave out sensitive information.</p>
+          <p className="form-data-note" id="enquiry-form-note">Review your enquiry, then send it from your email app. Your enquiry isn’t stored on this website.</p>
           <Button type="submit">{pending ? "Preparing draft…" : "Prepare email draft"}<ArrowIcon /></Button>
         </fieldset>
       </form>

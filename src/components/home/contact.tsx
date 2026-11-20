@@ -10,10 +10,10 @@ export function Contact() {
   return (
     <section id="contact" tabIndex={-1} className="contact-section section-space" aria-labelledby="contact-title">
       <Container>
-        <SectionLabel number="07">Let’s build something useful</SectionLabel>
+        <SectionLabel>Let’s build something useful</SectionLabel>
         <div className="contact-grid">
           <div><h2 id="contact-title">What should work<br /><span>better in your business?</span></h2><p>Help customers enquire, buy or book. Make everyday work easier for your team. Tell us which part of your business needs a better digital experience.</p></div>
-          <div className="contact-actions"><a href={projectEnquiryHref} className={buttonClassName()}>Email us about a project <ArrowIcon /></a><a href={`mailto:${site.email}`} className="contact-email">{site.email}</a><p>Share your requirements, timeline and any useful context. The project button opens a draft in your email app.</p><Link href="/contact" className="text-link">Prepare your enquiry online <ArrowIcon /></Link></div>
+          <div className="contact-actions"><a href={projectEnquiryHref} className={buttonClassName()}>Email us about a project <ArrowIcon /></a><a href={`mailto:${site.email}`} className="contact-email">{site.email}</a><p>Share your requirements, timeline and any useful context. We’ll help you define a practical next step.</p><Link href="/contact" className="text-link">Prepare your enquiry online <ArrowIcon /></Link></div>
         </div>
       </Container>
     </section>

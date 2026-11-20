@@ -9,7 +9,7 @@ export function PageCta({ title = "Let’s make the next step clear.", descripti
   return (
     <section className="page-cta section-space" aria-labelledby="page-cta-title">
       <Container>
-        <SectionLabel number="↳">Start a conversation</SectionLabel>
+        <SectionLabel>Start a conversation</SectionLabel>
         <div className="page-cta-grid">
           <div><h2 id="page-cta-title" className="section-heading">{title}</h2><p>{description}</p></div>
           <Link href="/contact" className={buttonClassName()}>Discuss a project <ArrowIcon /></Link>

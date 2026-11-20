@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { connection } from "next/server";
 import { optionalServerEnv } from "@/server/env";
 import { auth, authConfigured } from "./config";
+import { adminPageHref } from "./origin";
 
 export class UnauthorizedError extends Error {}
 
@@ -23,6 +24,6 @@ export async function requireAdmin() {
 
 export async function requireAdminPage() {
   const session = await adminSession();
-  if (!session) redirect("/admin/login");
+  if (!session) redirect(adminPageHref("/admin/login", process.env));
   return session;
 }

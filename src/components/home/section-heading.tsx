@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
-export function SectionLabel({ number, children }: { number: string; children: ReactNode }) {
-  return <p className="section-label"><span aria-hidden="true">{number} /</span> {children}</p>;
+export function SectionLabel({ children }: { children: ReactNode }) {
+  return <p className="section-label">{children}</p>;
 }
 
 export function SectionHeading({ id, children }: { id: string; children: ReactNode }) {

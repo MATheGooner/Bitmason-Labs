@@ -5,6 +5,7 @@ import { PublicPage } from "@/components/layout/public-page";
 import { CaseStudy } from "@/components/portfolio/case-study";
 import { publicPageMetadata } from "@/lib/metadata";
 import { projectHref } from "@/lib/portfolio";
+import { presentProject } from "@/lib/project-presentation";
 import { getPublishedProject, listPublishedProjects } from "@/server/portfolio/reader";
 
 type ProjectPageProps = { params: Promise<{ slug: string }> };
@@ -12,8 +13,8 @@ type ProjectPageProps = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const project = await getPublishedProject((await params).slug);
   if (!project) notFound();
-  const title = `${project.name} — ${project.status === "concept" ? "concept study" : "project study"}`;
-  return publicPageMetadata(title, project.summary, projectHref(project), {
+  const title = `${project.name} — case study`;
+  return publicPageMetadata(title, presentProject(project).summary, projectHref(project), {
     url: project.cover.src || "/opengraph-image", width: project.cover.width, height: project.cover.height, alt: project.cover.alt,
   });
 }
