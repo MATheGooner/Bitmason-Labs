@@ -1,4 +1,3 @@
-import { PortfolioImage } from "./portfolio-image";
 import Link from "next/link";
 
 import { ProjectPreview } from "@/components/portfolio/project-preview";
@@ -7,13 +6,12 @@ import type { PortfolioProject } from "@/lib/portfolio";
 import { projectHref } from "@/lib/portfolio";
 import { presentProject } from "@/lib/project-presentation";
 
-export function ProjectCard({ project: record, presentation = "preview" }: { project: PortfolioProject; presentation?: "preview" | "interface" }) {
+export function ProjectCard({ project: record }: { project: PortfolioProject }) {
   const project = presentProject(record);
   const href = projectHref(project);
-  const interfaceImage = project.gallery.find((image) => image.kind === "interface") ?? project.cover;
   return (
     <figure className={`project project-${project.preview?.theme ?? "default"}`}>
-      {presentation === "preview" ? <ProjectPreview project={project} href={href} /> : <Link href={href} className="project-image-link" aria-label={`Explore the ${project.name} case study`}><PortfolioImage src={interfaceImage.src} alt={interfaceImage.alt} width={interfaceImage.width} height={interfaceImage.height} sizes="(min-width: 1280px) 572px, (min-width: 768px) 50vw, 100vw" className="project-card-interface" /></Link>}
+      <ProjectPreview project={project} href={href} />
       <figcaption>
         <div className="project-caption-top">
           <span className="technical-label">{project.preview?.sector ?? project.category.name}</span>

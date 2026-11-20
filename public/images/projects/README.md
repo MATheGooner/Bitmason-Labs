@@ -18,14 +18,13 @@ Clinic - Copy` directory. No sibling credentials or databases were accessed.
 The Northfield photograph was fetched successfully from its original source;
 the older sibling screenshot with a broken image was not reused.
 
-The homepage HTML/CSS previews are composed presentation studies using the existing
-imagery and visual themes. They are labelled as concepts and are not represented
-as exact screenshots, commissioned client deliveries or public live demos.
+The former homepage HTML/CSS presentation studies have been removed. Project
+covers now show genuine desktop and mobile website captures, documented below.
 All five businesses are fictional. Their sample contacts, ratings, testimonials,
 prices and operational claims are not copied into the Bitmason homepage.
 
-The hero and systems figures are original HTML/CSS illustrations with explicitly
-labelled sample data. Neither represents an implemented or live Bitmason product.
+The hero and systems figures explain customer journeys and information handoffs
+without invented customer records or a claim to represent a live Bitmason product.
 
 ## Batch 3 galleries — 16 November 2026
 
@@ -57,3 +56,33 @@ content are not invented. Captions identify the fictional context and illustrati
 photographs. No interface capture is represented as commissioned client work,
 real operational data or evidence of a public deployment. All images are local at
 website runtime, and the full-image gallery links resolve to these actual assets.
+
+## Responsive website covers — 20 November 2026
+
+Every project uses `cover-desktop.webp` and `cover-mobile.webp` in its project
+directory. Desktop captures show a complete 1440 × 900 viewport (8:5 landscape).
+Mobile captures show a complete 390 × 844 viewport at double resolution
+(780 × 1688, portrait). Mobile is captured independently using the original
+responsive CSS. Covers use lossless WebP; no colours, fonts, layouts, imagery,
+overlays or filters are added or changed by Bitmason. Original website overlays
+remain part of the photographed interface. The shared cover component contains
+the whole capture and selects mobile below 768 px, with no stretching or cropping.
+
+| Project directory | Original website source | Page captured |
+| --- | --- | --- |
+| `le-saphir` | `Le Saphir/.next/server/app/about.html`, original CSS and public images | `/about` |
+| `ecoshine` | `EcoShine/dist/index.html` and its original compiled assets | `/` |
+| `northfield` | `Northfield Home Services/.next/server/app/index.html`, original CSS and public assets | `/` |
+| `aurelia` | Original `Aurelia Private Clinic/.next/server/app/index.html`, original CSS and public assets | `/` |
+| `linden` | `Linden/.next/server/app/index.html`, original CSS and public images | `/` |
+
+Le Saphir's homepage cannot be captured with the available configuration: its
+database-backed menu requires `DATABASE_URL`, which is not configured in the
+original project. Its real About page is used instead; no homepage is fabricated.
+All cover photography is available. Northfield and Aurelia's remote photographs
+resolve to the previously verified local copies of the exact original sources
+listed above. Public logos are served from the original project asset folders.
+
+The cover manifest upgrades existing local cover references when rendering
+published records; later administrator uploads retain their own image. No
+database records or remote storage objects are overwritten.

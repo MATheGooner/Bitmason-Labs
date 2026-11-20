@@ -13,7 +13,7 @@ export const localProjects: readonly PortfolioProject[] = [
     publicationStatus: "published",
     featured: true,
     order: 1,
-    cover: { src: "/images/projects/le-saphir.webp", alt: "Restaurant table set with plated food and wine glasses.", width: 1440, height: 960 },
+    cover: { src: "/images/projects/le-saphir/cover-desktop.webp", alt: "Le Saphir restaurant website, showing its original restaurant story page.", width: 1440, height: 900 },
     gallery: [
       { id: "interface", src: "/images/projects/le-saphir/interface.webp", alt: "Le Saphir concept website showing its restaurant story page.", width: 1440, height: 782, caption: "Restaurant story page from the existing Le Saphir build. The restaurant and its content are fictional.", order: 1, kind: "interface" },
       { id: "story", src: "/images/projects/le-saphir/story.webp", alt: "Two people discussing food in a kitchen, from the Le Saphir concept imagery.", width: 1000, height: 667, caption: "Illustrative restaurant imagery from the concept’s existing asset collection.", order: 2, kind: "photograph" },
@@ -41,7 +41,7 @@ export const localProjects: readonly PortfolioProject[] = [
     publicationStatus: "published",
     featured: true,
     order: 2,
-    cover: { src: "/images/projects/ecoshine.webp", alt: "Bright, open-plan living space with a clean, light interior.", width: 1200, height: 800 },
+    cover: { src: "/images/projects/ecoshine/cover-desktop.webp", alt: "EcoShine homepage, showing its cleaning services and interior photography.", width: 1440, height: 900 },
     gallery: [
       { id: "interface", src: "/images/projects/ecoshine/interface.webp", alt: "EcoShine concept website with its cleaning service introduction and interior photograph.", width: 1440, height: 585, caption: "Homepage interface from the existing EcoShine build, cropped to its introduction. EcoShine is a fictional business.", order: 1, kind: "interface" },
       { id: "cleaning", src: "/images/projects/ecoshine/cleaning.webp", alt: "A cleaner working on upholstered furniture in the EcoShine concept imagery.", width: 1200, height: 800, caption: "Illustrative cleaning photograph from the project’s existing assets; it does not depict a commissioned client.", order: 2, kind: "photograph" },
@@ -69,7 +69,7 @@ export const localProjects: readonly PortfolioProject[] = [
     publicationStatus: "published",
     featured: true,
     order: 3,
-    cover: { src: "/images/projects/northfield.webp", alt: "Tradesperson in a hard hat standing beside electrical equipment.", width: 1200, height: 801 },
+    cover: { src: "/images/projects/northfield/cover-desktop.webp", alt: "Northfield Home Services homepage introducing plumbing, heating and electrical services.", width: 1440, height: 900 },
     gallery: [
       { id: "interface", src: "/images/projects/northfield/interface.webp", alt: "Northfield Home Services concept website introducing plumbing, heating and electrical services.", width: 1440, height: 630, caption: "Introduction from the existing Northfield build. Fictional ratings and contact details are excluded from this interface crop.", order: 1, kind: "interface" },
       { id: "trade", src: "/images/projects/northfield.webp", alt: "Tradesperson beside electrical equipment, from the Northfield concept imagery.", width: 1200, height: 801, caption: "Illustrative trade photograph already used in the concept; it is not evidence of a delivered customer job.", order: 2, kind: "photograph" },
@@ -97,7 +97,7 @@ export const localProjects: readonly PortfolioProject[] = [
     publicationStatus: "published",
     featured: true,
     order: 4,
-    cover: { src: "/images/projects/aurelia.webp", alt: "Healthcare staff walking through a bright hospital corridor.", width: 1200, height: 822 },
+    cover: { src: "/images/projects/aurelia/cover-desktop.webp", alt: "Aurelia Private Clinic homepage showing its healthcare introduction and appointment links.", width: 1440, height: 900 },
     gallery: [
       { id: "interface", src: "/images/projects/aurelia/interface.webp", alt: "Aurelia Private Clinic concept website showing its care discovery introduction.", width: 1440, height: 795, caption: "Public homepage introduction from the original Aurelia concept build. No real clinic or patient service is represented.", order: 1, kind: "interface" },
       { id: "facility", src: "/images/projects/aurelia/facility.webp", alt: "Bright healthcare interior used as illustrative imagery in the Aurelia concept.", width: 1200, height: 817, caption: "Illustrative healthcare setting from the project’s existing image source; it is not a Bitmason client facility.", order: 2, kind: "photograph" },
@@ -125,7 +125,7 @@ export const localProjects: readonly PortfolioProject[] = [
     publicationStatus: "published",
     featured: true,
     order: 5,
-    cover: { src: "/images/projects/linden.webp", alt: "Swiss residential building with rows of windows and dark green shutters.", width: 1200, height: 675 },
+    cover: { src: "/images/projects/linden/cover-desktop.webp", alt: "Linden and Co. homepage showing its Geneva property introduction and residential photography.", width: 1440, height: 900 },
     gallery: [
       { id: "interface", src: "/images/projects/linden/interface.webp", alt: "Linden and Co. concept homepage pairing its Geneva property introduction with a building photograph.", width: 1440, height: 1000, caption: "Homepage from the existing Linden & Co. build. The agency and property records are fictional.", order: 1, kind: "interface" },
       { id: "interior", src: "/images/projects/linden/interior.webp", alt: "Open-plan living room and kitchen used in the Linden property concept.", width: 1200, height: 800, caption: "Illustrative interior from the original project’s local photography collection; no property availability is implied.", order: 2, kind: "photograph" },

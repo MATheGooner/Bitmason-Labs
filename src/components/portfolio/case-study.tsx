@@ -1,4 +1,4 @@
-import { PortfolioImage } from "./portfolio-image";
+import { ProjectCover } from "./project-cover";
 import { GalleryImage } from "./gallery-image";
 import Link from "next/link";
 import { SectionHeading, SectionLabel } from "@/components/home/section-heading";
@@ -18,7 +18,7 @@ export function CaseStudy({ project: record, nextProject }: { project: Portfolio
       <a href="#overview" className="text-link">Read the case study <ArrowIcon /></a>
       <a href="#gallery" className="text-link">Explore the details <ArrowIcon /></a>
     </PageHero>
-    <Container><figure className="case-cover"><PortfolioImage src={project.cover.src} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} sizes="(min-width: 1280px) 1184px, 100vw" className="case-cover-image" /><figcaption>{project.name} · Visual direction</figcaption></figure></Container>
+    <Container><figure className="case-cover"><ProjectCover project={project} sizes="(min-width: 1280px) 1184px, 100vw" /><figcaption>{project.name} · Website interface</figcaption></figure></Container>
     <section id="overview" tabIndex={-1} className="case-overview section-space" aria-labelledby="overview-title"><Container><div className="editorial-split">
       <div><SectionLabel>Project overview</SectionLabel><SectionHeading id="overview-title">The purpose behind the experience.</SectionHeading></div>
       <div className="editorial-body">{project.overview.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
