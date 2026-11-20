@@ -19,6 +19,7 @@ Public routes remain unindexed by default. The [deployment handoff](DEPLOYMENT.m
 records hosting settings, environment requirements, domain checks and the
 owner-controlled indexing gate.
 
+
 ## Local setup
 
 Use **Node.js 24 LTS** and npm. `.nvmrc` and `package.json` declare the Node version.
@@ -207,7 +208,6 @@ Read [the server boundary notes](src/server/README.md) before implementing an
 integration. No credentials are read at import time, and the public `site.url`
 constant does not connect the application to the domain.
 
-
 ## Public routes and portfolio architecture
 
 | Local route | Current behaviour |
@@ -298,3 +298,22 @@ handling, outside-click dismissal, focus handling, breakpoint closing and
 expanded-state announcements. Content remains visible without staged reveals.
 Local fonts and the original project assets remain self-hosted. Newly uploaded
 portfolio images use the configured Cloudflare R2 public asset domain.
+
+## Design, validation and future batches
+
+[DESIGN_DIRECTION.md](DESIGN_DIRECTION.md) defines the visual identity,
+three capability areas, responsive behaviour, imagery policy and section-level
+homepage plan. Reference screenshots are local research artefacts under the
+ignored `.local/research/` directory, never website assets.
+
+[PROJECT_PROGRESS.md](PROJECT_PROGRESS.md) records implementation and validation
+through Batch 5 (Phase 08), including continuation checks and remaining
+launch dependencies.
+Portfolio content requires Neon; enquiry drafts still need no external service.
+Image storage uses Cloudflare R2. Batch 6 prepares launch; deployment remains pending.
+
+To finish deployment, follow `DEPLOYMENT.md` and connect the GitHub repository to Vercel,
+use `npm run build`, select Node.js 24 and configure environment variables there
+only for implemented features. Obtain the required domain records from Vercel
+before changing Cloudflare DNS; no speculative DNS or deployment configuration
+is included here.
