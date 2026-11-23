@@ -1,15 +1,11 @@
 import "server-only";
 
-import type { PortfolioCategory, PortfolioProject } from "@/lib/portfolio";
+import type { PortfolioCategory, PortfolioProject, ProjectQuery } from "@/lib/portfolio";
+import { selectPublishedProjects } from "@/lib/portfolio";
 import { cache } from "react";
 import { connection } from "next/server";
 import { publicDatabase } from "@/server/db/client";
 import { queryProjects } from "@/server/portfolio/queries";
-
-interface ProjectQuery {
-  readonly category?: string;
-  readonly featured?: boolean;
-}
 
 /** Request-only memoization; never fall back to local records after failure. */
 const readPublishedProjects = cache(async (): Promise<PortfolioProject[]> => {
@@ -23,11 +19,7 @@ const readPublishedProjects = cache(async (): Promise<PortfolioProject[]> => {
 });
 
 export async function listPublishedProjects(query: ProjectQuery = {}): Promise<PortfolioProject[]> {
-  const projects = await readPublishedProjects();
-  return projects.filter((project) =>
-    (query.category === undefined || project.category.slug === query.category)
-    && (query.featured === undefined || project.featured === query.featured),
-  );
+  return selectPublishedProjects(await readPublishedProjects(), query);
 }
 
 export async function getPublishedProject(slug: string): Promise<PortfolioProject | null> {

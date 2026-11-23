@@ -78,13 +78,12 @@
   .project-image-link { display: block; }
   .project h3 > a:hover { color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.3rem; }
   .project-detail-link { margin-top: 0.75rem; }
-  .project-linden .project-detail-link { grid-column: 2; }
-  .project-cover { position: relative; width: 100%; aspect-ratio: 390 / 844; overflow: hidden; }
+  .project-cover { position: relative; width: 100%; aspect-ratio: var(--project-cover-mobile-ratio, 8 / 5); overflow: hidden; background: var(--color-surface); }
   .project-cover picture { display: block; width: 100%; height: 100%; }
   .project-cover .project-cover-image { display: block; width: 100%; height: 100%; object-fit: contain; }
   .project-cover .portfolio-image-fallback { width: 100%; height: 100%; aspect-ratio: auto !important; }
   .portfolio-grid > .project { grid-column: auto; margin-top: 0; }
-  .portfolio-grid .project figcaption { display: block; }
+  .portfolio-grid .project .project-detail-link { margin-top: auto; padding-top: 1rem; }
   .portfolio-grid .project .project-description { margin-top: 0.85rem; }
   .portfolio-grid .project .project-caption-top { align-items: baseline; }
   .portfolio-empty { border-bottom: 1px solid var(--color-line); padding-block: 3rem; }
@@ -193,12 +192,12 @@
   }
 
   @media (min-width: 768px) {
-    .project-cover { aspect-ratio: 8 / 5; }
+    .project-cover { aspect-ratio: var(--project-cover-ratio, 8 / 5); }
     .editorial-split { grid-template-columns: 1fr 1.1fr; gap: 3rem; }
     .service-page-index > div { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem 1.5rem; }
     .service-detail { grid-template-columns: 0.75fr 1.25fr; gap: 3rem; padding-block: 3.5rem; }
     .service-detail-columns { grid-template-columns: 1fr; }
-    .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.5rem 2rem; align-items: start; }
+    .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.5rem 2rem; align-items: stretch; }
     .case-scope-grid { grid-template-columns: 1.2fr 0.8fr; gap: 3rem; }
     .case-technical-details { border-left: 1px solid var(--color-line); padding-left: 2rem; }
     .gallery-item figcaption { display: grid; grid-template-columns: 0.55fr 1fr; align-items: start; gap: 0.5rem 2rem; }

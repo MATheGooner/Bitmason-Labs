@@ -55,7 +55,7 @@ export function ProjectForm({ record, uploadScope }: { record?: StoredProject; u
       </div></fieldset>
       <fieldset className="admin-form-section"><legend>Status and visibility</legend><p className="admin-hint">Publication never changes delivery status. Preserve fictional-business disclosures for concepts. Mark work completed only with verified delivery evidence.</p><div className="admin-form-grid">
         {select("status", "Delivery status", [["concept", "Concept"], ["completed", "Completed"]])}{select("publicationStatus", "Publication status", [["draft", "Draft — hidden from visitors"], ["published", "Published — visible to visitors"]])}
-        {field("order", "Display order", { number: true })}<label className="admin-check"><input type="checkbox" name="featured" defaultChecked={state.values.featured} />Featured on the homepage</label>
+        {field("order", "Display order", { number: true, hint: "Lower numbers appear first. The homepage shows up to five published, featured projects." })}<label className="admin-check"><input type="checkbox" name="featured" defaultChecked={state.values.featured} />Featured on the homepage</label>
       </div></fieldset>
       <fieldset className="admin-form-section"><legend>Project study</legend><div className="admin-form-grid">
         {field("overview", "Overview / description", { multiline: true, wide: true, hint: "Separate paragraphs with a blank line." })}

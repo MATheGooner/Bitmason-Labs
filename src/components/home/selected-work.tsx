@@ -7,7 +7,7 @@ import { ArrowIcon } from "@/components/ui/icons";
 import { listPublishedProjects } from "@/server/portfolio/reader";
 
 export async function SelectedWork() {
-  const projects = await listPublishedProjects({ featured: true });
+  const projects = await listPublishedProjects({ featured: true, limit: 5 });
   return (
     <section id="selected-work" tabIndex={-1} className="selected-work-section section-space" aria-labelledby="work-title">
       <Container>
@@ -16,7 +16,7 @@ export async function SelectedWork() {
           <p>Hospitality, home services, healthcare and property. Explore the design decisions and engineering behind experiences built around a clear business purpose.</p>
         </div>
         <div className="projects-grid">
-          {projects.map((project) => <ProjectCard project={project} key={project.slug} />)}
+          {projects.map((project) => <ProjectCard project={project} featured key={project.slug} />)}
         </div>
         {!projects.length && <p className="project-note">Project studies are currently unavailable. Please check back shortly.</p>}
         <Link href="/portfolio" className="text-link mt-4">View the portfolio <ArrowIcon /></Link>

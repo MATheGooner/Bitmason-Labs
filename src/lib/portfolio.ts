@@ -56,6 +56,21 @@ export interface PortfolioCategory extends ProjectCategory {
   readonly count: number;
 }
 
+export interface ProjectQuery {
+  readonly category?: string;
+  readonly featured?: boolean;
+  readonly limit?: number;
+}
+
+/** Apply visibility and administrator order before limiting a public selection. */
+export function selectPublishedProjects(projects: readonly PortfolioProject[], query: ProjectQuery = {}): PortfolioProject[] {
+  return projects.filter((project) => project.publicationStatus === "published"
+    && (query.category === undefined || project.category.slug === query.category)
+    && (query.featured === undefined || project.featured === query.featured))
+    .sort((a, b) => a.order - b.order || a.name.localeCompare(b.name) || a.slug.localeCompare(b.slug))
+    .slice(0, query.limit);
+}
+
 export function projectHref(project: Pick<PortfolioProject, "slug">): string {
   return `/portfolio/${encodeURIComponent(project.slug)}`;
 }

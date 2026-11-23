@@ -30,6 +30,21 @@ test("orientation is normalized without retaining EXIF", async () => {
   assert.equal((await sharp(prepared.body).metadata()).exif, undefined);
 });
 
+test("website screenshots retain their individual resolutions and complete image bounds", async () => {
+  for (const [width, height] of [[2467, 1781], [2442, 1414], [2562, 1439]] as const) {
+    const marker = await sharp({ create: { width: 32, height: 32, channels: 3, background: "#185442" } }).png().toBuffer();
+    const body = await sharp({ create: { width, height, channels: 3, background: "white" } })
+      .composite([{ input: marker, left: 0, top: 0 }, { input: marker, left: width - 32, top: height - 32 }]).png().toBuffer();
+    const prepared = await prepareImage(new File([body], "screenshot.png", { type: "image/png" }));
+    assert.equal(prepared.width, width);
+    assert.equal(prepared.height, height);
+    for (const [left, top] of [[8, 8], [width - 16, height - 16]]) {
+      const pixel = await sharp(prepared.body).extract({ left: left!, top: top!, width: 1, height: 1 }).raw().toBuffer();
+      assert.ok(Math.abs(pixel[0]! - 24) < 12 && Math.abs(pixel[1]! - 84) < 12 && Math.abs(pixel[2]! - 66) < 12, "Both screenshot corners must remain visible after processing");
+    }
+  }
+});
+
 test("SVG, GIF, extension mismatch, MIME spoofing, corrupt and truncated images are refused", async () => {
   const png = await raster().png().toBuffer();
   const files = [

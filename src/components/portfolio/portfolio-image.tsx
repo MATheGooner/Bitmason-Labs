@@ -16,9 +16,9 @@ export function PortfolioImage({ src, alt, mobile, onUnavailable, ...props }: Pr
   }
   const picture = <Image {...props} src={src} alt={alt} onError={() => { setFailedSource(src); onUnavailable?.(); }} />;
   if (!mobile) return picture;
-  const { props: mobileProps } = getImageProps({ src: mobile.src, alt, width: mobile.width, height: mobile.height, sizes: props.sizes });
+  const { props: mobileProps } = getImageProps({ ...props, src: mobile.src, alt: mobile.alt, width: mobile.width, height: mobile.height });
   return <picture>
-    <source media="(max-width: 767px)" srcSet={mobileProps.srcSet} sizes={mobileProps.sizes} width={mobile.width} height={mobile.height} />
+    <source media="(max-width: 767px)" srcSet={mobileProps.srcSet ?? mobileProps.src} sizes={mobileProps.sizes} width={mobile.width} height={mobile.height} />
     {picture}
   </picture>;
 }

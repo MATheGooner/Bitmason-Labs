@@ -1,5 +1,9 @@
 import type { PortfolioProject, ProjectImage } from "./portfolio";
 
+// Match the shared container's padding and the portfolio's two-column gaps.
+export const PROJECT_COVER_SIZES = "(min-width: 1280px) 1184px, (min-width: 1024px) calc(100vw - 96px), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)";
+export const PROJECT_CARD_SIZES = "(min-width: 1280px) 572px, (min-width: 1024px) calc(50vw - 68px), (min-width: 768px) calc(50vw - 48px), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)";
+
 interface ResponsiveCover {
   readonly desktop: ProjectImage;
   readonly mobile?: ProjectImage;
