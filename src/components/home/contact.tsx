@@ -12,8 +12,8 @@ export function Contact() {
       <Container>
         <SectionLabel>Let’s build something useful</SectionLabel>
         <div className="contact-grid">
-          <div><h2 id="contact-title">What should work<br /><span>better in your business?</span></h2><p>Help customers enquire, buy or book. Make everyday work easier for your team. Tell us which part of your business needs a better digital experience.</p></div>
-          <div className="contact-actions"><a href={projectEnquiryHref} className={buttonClassName()}>Email us about a project <ArrowIcon /></a><a href={`mailto:${site.email}`} className="contact-email">{site.email}</a><p>Share your requirements, timeline and any useful context. We’ll help you define a practical next step.</p><Link href="/contact" className="text-link">Prepare your enquiry online <ArrowIcon /></Link></div>
+          <div><h2 id="contact-title">What should work<br /><span>better in your business?</span></h2><p>Tell us what you need to build or improve, along with the requirements that will help us understand your project.</p></div>
+          <div className="contact-actions"><a href={projectEnquiryHref} className={buttonClassName()}>Email us about a project <ArrowIcon /></a><a href={`mailto:${site.email}`} className="contact-email">{site.email}</a><p>Include your timeline and any useful constraints.</p><Link href="/contact" className="text-link">Prepare your enquiry online <ArrowIcon /></Link></div>
         </div>
       </Container>
     </section>

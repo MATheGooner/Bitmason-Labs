@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { BrandMark } from "@/components/layout/brand";
 import { SectionHeading, SectionLabel } from "@/components/home/section-heading";
 import { Container } from "@/components/ui/container";
+import { ArrowIcon } from "@/components/ui/icons";
 
 export function Company() {
   return (
@@ -8,12 +10,11 @@ export function Company() {
       <Container className="company-grid">
         <div><SectionLabel>The company</SectionLabel><BrandMark className="company-mark" /></div>
         <div>
-          <SectionHeading id="company-title">An engineering partner for the way your business works.</SectionHeading>
+          <SectionHeading id="company-title">Design and engineering.<br />One connected approach.</SectionHeading>
           <div className="company-body">
-            <p>Your customer’s next step matters: understanding a service, requesting a quote, making a purchase or booking a time. Your team needs a clear way to handle what follows.</p>
-            <p>Bitmason Labs brings design and software engineering together around those needs. We connect the experience customers use with the records, tools and workflows behind it.</p>
+            <p>We bring considered design and software engineering together, connecting the experience customers use with the records, tools and workflows behind it.</p>
           </div>
-          <p className="company-principle"><span aria-hidden="true">+</span> Considered design. Reliable engineering. One connected approach.</p>
+          <Link href="/about" className="text-link company-link">Meet Bitmason Labs <ArrowIcon /></Link>
         </div>
       </Container>
     </section>

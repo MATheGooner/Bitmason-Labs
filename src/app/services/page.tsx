@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { Capabilities } from "@/components/home/capabilities";
-import { Systems } from "@/components/home/systems";
 import { PublicPage } from "@/components/layout/public-page";
 import { PageCta } from "@/components/public/page-cta";
 import { PageHero } from "@/components/public/page-hero";
@@ -16,16 +14,14 @@ export const metadata = publicPageMetadata("Services", "Websites, e-commerce, cu
 export default function ServicesPage() {
   return (
     <PublicPage activePage="/services">
-      <PageHero eyebrow="Digital engineering services" title={<>Build the experience.<br /><span>Connect the business.</span></>} description="Help customers discover your offer, make an enquiry, buy or book. Give your team the software and connections to handle what follows. We define each project around the steps your business needs to improve.">
+      <PageHero eyebrow="Digital engineering services" title={<>Build the experience.<br /><span>Connect the business.</span></>} description="Eight services for customer-facing websites and the software behind them. Explore typical scope, business use cases and planning considerations.">
         <a href="#service-directory" className={buttonClassName()}>Explore the services <ArrowIcon /></a>
-        <Link href="/contact" className="text-link">Discuss what you need <ArrowIcon /></Link>
+        <Link href="/contact" className="text-link">Discuss a project <ArrowIcon /></Link>
       </PageHero>
       <nav className="service-page-index" aria-label="Service directory">
         <div className="mx-auto max-w-site px-5 sm:px-8 lg:px-12">{services.map((service) => <a key={service.id} href={`#${service.id}`}>{service.title}</a>)}</div>
       </nav>
-      <Capabilities />
       <ServiceDirectory />
-      <Systems />
       <PageCta title="Start with the business need." />
     </PublicPage>
   );

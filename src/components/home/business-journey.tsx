@@ -55,7 +55,7 @@ const journeys = [
 ] as const;
 
 /** Follow the information shared by a customer and a business, without invented records. */
-export function BusinessJourney({ compact = false }: { compact?: boolean }) {
+export function BusinessJourney() {
   const [selected, setSelected] = useState(0);
   const id = useId();
   const journey = journeys[selected]!;
@@ -74,7 +74,7 @@ export function BusinessJourney({ compact = false }: { compact?: boolean }) {
     event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>("button")[next]?.focus();
   }
 
-  return <div className={`business-journey${compact ? " journey-compact" : ""}`}>
+  return <div className="business-journey">
     <div className="journey-choices" role="tablist" aria-label="Explore a customer journey">
       {journeys.map((item, index) => <button key={item.label} id={`${id}-tab-${index}`} type="button" role="tab" aria-selected={index === selected} aria-controls={`${id}-panel`} tabIndex={index === selected ? 0 : -1} onClick={() => setSelected(index)} onKeyDown={(event) => navigate(event, index)}>{item.label}</button>)}
     </div>

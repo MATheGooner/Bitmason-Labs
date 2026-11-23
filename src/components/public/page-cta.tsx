@@ -5,7 +5,7 @@ import { buttonClassName } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ArrowIcon } from "@/components/ui/icons";
 
-export function PageCta({ title = "Let’s make the next step clear.", description = "Tell us which customer journey or team workflow needs to work better. We can help define a practical scope around your business priorities." }: { title?: string; description?: string }) {
+export function PageCta({ title = "Let’s make the next step clear.", description = "Tell us what you need to build or improve, along with your timeline and any useful context." }: { title?: string; description?: string }) {
   return (
     <section className="page-cta section-space" aria-labelledby="page-cta-title">
       <Container>

@@ -47,7 +47,7 @@
   .service-page-index > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem 1rem; padding-block: 1.25rem; }
   .service-page-index a { display: flex; min-height: 2.75rem; align-items: center; color: var(--color-accent); font-size: 0.8125rem; line-height: 1.6; text-decoration: underline; text-decoration-color: var(--color-line); text-underline-offset: 0.3rem; }
   .service-page-index a:hover { text-decoration-color: currentColor; }
-  .service-directory { padding-top: 1rem; }
+  .service-directory { padding-top: clamp(2.5rem, 4vw, 3.5rem); }
   .service-detail { display: grid; gap: 2rem; border-top: 1px solid var(--color-line); padding-block: 2.5rem; }
   .service-detail:last-child { padding-bottom: 0; }
   .service-detail-heading > span { color: var(--color-copper); }
@@ -55,13 +55,14 @@
   .service-detail-heading > p { max-width: 26rem; margin-top: 1rem; color: var(--color-muted); font-size: 1rem; line-height: 1.8; }
   .service-detail-body { min-width: 0; }
   .service-detail-body > p:first-child { max-width: 42rem; font-size: 1.0625rem; line-height: 1.85; }
-  .service-detail-columns { display: grid; gap: 1.75rem; margin-top: 2rem; }
+  .service-detail-columns { display: grid; gap: 1.5rem; margin-top: 1.5rem; }
   .service-detail-columns h4 { margin-bottom: 0.75rem; color: var(--color-copper); }
   .service-detail-columns p, .service-detail-columns li { color: var(--color-muted); font-size: 0.9375rem; line-height: 1.8; }
   .service-detail-columns li { position: relative; padding-left: 1rem; }
   .service-detail-columns li::before { position: absolute; left: 0; color: var(--color-accent); content: "·"; }
   .service-detail-columns li + li { margin-top: 0.5rem; }
-  .service-consideration { margin-top: 1.75rem; border-left: 2px solid var(--color-accent); padding-left: 1rem; color: var(--color-muted); font-size: 0.875rem; line-height: 1.8; }
+  .service-consideration { margin-top: 1.5rem; border-left: 2px solid var(--color-accent); padding-left: 1rem; color: var(--color-muted); font-size: 0.875rem; line-height: 1.8; }
+  .service-consideration > .technical-label { display: block; margin-bottom: 0.4rem; color: var(--color-copper); }
   .service-detail-body > .text-link { margin-top: 1rem; }
 
   .portfolio-honesty { max-width: 45rem; border-left: 2px solid var(--color-accent); padding-left: 1rem; color: var(--color-muted); font-size: 0.875rem; line-height: 1.8; }
@@ -102,9 +103,12 @@
   .case-brief-grid h2 { max-width: 28rem; font-size: clamp(1.75rem, 2.8vw, 2.3rem); font-weight: 550; letter-spacing: -0.04em; line-height: 1.2; }
   .case-brief-grid article > p:last-child { max-width: 35rem; margin-top: 1.5rem; color: var(--color-muted); font-size: 1rem; line-height: 1.85; }
   .case-scope-grid { display: grid; gap: 3rem; }
-  .case-features { margin-top: 2rem; }
-  .case-features li { display: flex; align-items: baseline; gap: 1rem; border-top: 1px solid var(--color-line); padding-block: 1.25rem; font-size: 1rem; line-height: 1.7; }
-  .case-features li > span:first-child { color: var(--color-copper); }
+  .case-features { display: grid; column-gap: 1.5rem; margin-top: 1.5rem; }
+  .case-features li { display: flex; align-items: baseline; gap: 0.75rem; border-top: 1px solid var(--color-line); padding-block: 1rem; font-size: 0.9375rem; line-height: 1.7; }
+  .case-features li > span:first-child { flex: none; color: var(--color-copper); }
+  .case-project-scope { margin-top: 2.5rem; border-top: 1px solid var(--color-line); padding-top: 1.5rem; }
+  .case-project-scope h3 { font-size: 1.25rem; font-weight: 550; letter-spacing: -0.025em; }
+  .case-scope-list { display: grid; gap: 0.75rem 2rem; margin-top: 1rem; color: var(--color-muted); font-size: 0.9375rem; line-height: 1.7; }
   .case-technical-details h3 { margin-top: 2rem; font-size: 1.25rem; font-weight: 550; letter-spacing: -0.025em; }
   .case-technical-details h3:first-child { margin-top: 0; }
   .case-technical-details > p { max-width: 27rem; margin-top: 0.75rem; color: var(--color-muted); font-size: 0.875rem; line-height: 1.8; }
@@ -195,10 +199,11 @@
     .project-cover { aspect-ratio: var(--project-cover-ratio, 8 / 5); }
     .editorial-split { grid-template-columns: 1fr 1.1fr; gap: 3rem; }
     .service-page-index > div { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem 1.5rem; }
-    .service-detail { grid-template-columns: 0.75fr 1.25fr; gap: 3rem; padding-block: 3.5rem; }
+    .service-detail { grid-template-columns: 0.75fr 1.25fr; gap: 3rem; padding-block: 3rem; }
     .service-detail-columns { grid-template-columns: 1fr; }
     .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.5rem 2rem; align-items: stretch; }
     .case-scope-grid { grid-template-columns: 1.2fr 0.8fr; gap: 3rem; }
+    .case-scope-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .case-technical-details { border-left: 1px solid var(--color-line); padding-left: 2rem; }
     .gallery-item figcaption { display: grid; grid-template-columns: 0.55fr 1fr; align-items: start; gap: 0.5rem 2rem; }
     .gallery-item figcaption > p { grid-column: 2; margin-top: 0; }
@@ -215,13 +220,14 @@
     .brand-assembly-drawing > svg { width: 11rem; height: 12rem; }
     .values-list { gap: 3.5rem 4rem; }
     .editorial-split { grid-template-columns: 0.95fr 1.05fr; gap: 5rem; }
-    .service-detail { grid-template-columns: 0.65fr 1.35fr; gap: 4rem; padding-block: 4rem; }
+    .service-detail { grid-template-columns: 0.65fr 1.35fr; gap: 4rem; padding-block: 3rem; }
     .service-detail-heading h3 { font-size: 2rem; }
     .service-detail-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4rem 2.5rem; }
     .portfolio-grid .project h3 { font-size: 1.75rem; }
     .case-brief-grid { gap: 5rem; }
     .case-scope-grid { grid-template-columns: 1.25fr 0.75fr; gap: 5rem; }
+    .case-features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .case-technical-details { padding-left: 3rem; }
     .case-gallery { gap: 4rem; }
     .contact-page-grid { grid-template-columns: 0.8fr 1.5fr; align-items: start; gap: 4.5rem; }

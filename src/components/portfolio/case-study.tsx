@@ -14,7 +14,7 @@ export function CaseStudy({ project: record, nextProject }: { project: Portfolio
   const project = presentProject(record);
   return <>
     <PageHero eyebrow={`${project.category.name} / Case study`} title={project.name} description={project.summary} breadcrumb={{ href: "/portfolio", label: "Portfolio" }}
-      aside={<dl className="case-facts"><div><dt>Focus</dt><dd>{project.scope.join(" · ")}</dd></div><div><dt>Discipline</dt><dd>Design & software engineering</dd></div><div><dt>Project type</dt><dd>{project.status === "concept" ? "Independent study" : "Completed project"}</dd></div></dl>}>
+      aside={<dl className="case-facts"><div><dt>Project scope</dt><dd><a href="#project-scope" className="text-link">View the full scope <ArrowIcon /></a></dd></div><div><dt>Discipline</dt><dd>Design & software engineering</dd></div><div><dt>Project type</dt><dd>{project.status === "concept" ? "Independent study" : "Completed project"}</dd></div></dl>}>
       <a href="#overview" className="text-link">Read the case study <ArrowIcon /></a>
       <a href="#gallery" className="text-link">Explore the details <ArrowIcon /></a>
     </PageHero>
@@ -34,12 +34,12 @@ export function CaseStudy({ project: record, nextProject }: { project: Portfolio
         <h3>Business applications</h3><ul className="case-use-cases">{project.useCases.map((useCase) => <li key={useCase}>{useCase}</li>)}</ul>
         {project.liveUrl && <><h3>Explore further</h3><a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-link">Visit the project <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a></>}
       </div>
-    </div></Container></section>
+    </div><div id="project-scope" tabIndex={-1} className="case-project-scope"><h3>Project scope</h3><ul className="case-scope-list" role="list">{project.scope.map((item) => <li key={item}>{item}</li>)}</ul></div></Container></section>
     <section id="gallery" tabIndex={-1} className="case-gallery-section section-space" aria-labelledby="gallery-title"><Container>
       <div className="section-introduction"><div><SectionLabel>Interface & visual direction</SectionLabel><SectionHeading id="gallery-title">A closer look at the details.</SectionHeading></div><p>Explore the interface, imagery and visual decisions that bring the experience together.</p></div>
       <div className="case-gallery">{project.gallery.map((item) => <GalleryImage key={item.id} item={item} />)}</div>
     </Container></section>
-    {nextProject && <section className="next-project" aria-labelledby="next-project-title"><Container><p className="technical-label">Continue exploring</p><Link href={projectHref(nextProject)}><h2 id="next-project-title">{nextProject.name}</h2><ArrowIcon /></Link><p>{nextProject.scope.join(" · ")}</p></Container></section>}
+    {nextProject && <section className="next-project" aria-labelledby="next-project-title"><Container><p className="technical-label">Continue exploring</p><Link href={projectHref(nextProject)}><h2 id="next-project-title">{nextProject.name}</h2><ArrowIcon /></Link><p>{nextProject.category.name}</p></Container></section>}
     <PageCta />
   </>;
 }

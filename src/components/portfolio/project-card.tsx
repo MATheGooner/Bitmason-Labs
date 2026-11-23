@@ -19,7 +19,6 @@ export function ProjectCard({ project: record, featured = false }: { project: Po
         </div>
         <h3><Link href={href}>{project.name}</Link></h3>
         <p className="project-description">{project.summary}</p>
-        {!featured && project.scope.length > 0 && <p className="project-scope">{project.scope.join(" · ")}</p>}
         <Link href={href} className="text-link project-detail-link">Explore the case study <ArrowIcon /><span className="sr-only">: {project.name}</span></Link>
       </figcaption>
     </figure>

@@ -30,7 +30,7 @@ export default function HomePage() {
         <Services />
         <SelectedWork />
         <Systems />
-        <EngineeringApproach />
+        <EngineeringApproach summary />
         <Contact />
       </main>
       <SiteFooter />

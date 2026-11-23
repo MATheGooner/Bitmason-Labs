@@ -13,7 +13,7 @@ export async function SelectedWork() {
       <Container>
         <div className="section-introduction">
           <div><SectionLabel>Selected work</SectionLabel><SectionHeading id="work-title">Different businesses.<br />Clearer customer journeys.</SectionHeading></div>
-          <p>Hospitality, home services, healthcare and property. Explore the design decisions and engineering behind experiences built around a clear business purpose.</p>
+          <p>Explore the design decisions and engineering behind each project, from the public interface to the systems supporting it.</p>
         </div>
         <div className="projects-grid">
           {projects.map((project) => <ProjectCard project={project} featured key={project.slug} />)}

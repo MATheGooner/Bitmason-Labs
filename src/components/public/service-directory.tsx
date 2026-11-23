@@ -15,11 +15,12 @@ export function ServiceDirectory() {
           <p>Choose a starting point below. A project can bring several services together around one business need.</p>
         </div>
         <div className="service-detail-list">
-          {services.map((service) => {
+          {services.map((service, index) => {
             const detail = serviceDetails[service.id];
             return (
               <article id={service.id} tabIndex={-1} className="service-detail" key={service.id} aria-labelledby={`${service.id}-title`}>
                 <div className="service-detail-heading">
+                  <span className="technical-label">Service {String(index + 1).padStart(2, "0")}</span>
                   <h3 id={`${service.id}-title`}>{service.title}</h3>
                   <p>{service.description}</p>
                 </div>
@@ -29,7 +30,7 @@ export function ServiceDirectory() {
                     <div><h4 className="technical-label">Typical scope</h4><p>{service.scope}</p></div>
                     <div><h4 className="technical-label">Business use cases</h4><ul>{detail.useCases.map((useCase) => <li key={useCase}>{useCase}</li>)}</ul></div>
                   </div>
-                  <p className="service-consideration">{detail.consideration}</p>
+                  <p className="service-consideration"><span className="technical-label">Planning note</span>{detail.consideration}</p>
                   <Link href="/contact" className="text-link">Discuss your requirements <ArrowIcon /><span className="sr-only"> for {service.title.toLowerCase()}</span></Link>
                 </div>
               </article>

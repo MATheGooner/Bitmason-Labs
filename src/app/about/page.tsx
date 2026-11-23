@@ -19,8 +19,8 @@ export default function AboutPage() {
     <PublicPage activePage="/about">
       <PageHero
         eyebrow="The company behind the work"
-        title={<>Built around your customers.<br /><span>Connected to your business.</span></>}
-        description="Bitmason Labs brings design and software engineering together to help businesses serve customers and improve operations. We start with the commercial need, define a practical scope and build the customer experience and systems around it."
+        title={<>Bitmason Labs.<br /><span>Design meets engineering.</span></>}
+        description="We bring design and software engineering together for businesses internationally, connecting customer-facing experiences with the systems behind them."
         aside={<figure className="brand-assembly"><div className="brand-assembly-drawing"><BrandMark /></div><figcaption>{site.tagline}</figcaption></figure>}
       >
         <a href="#approach" className="text-link">Explore our approach <ArrowIcon /></a>
@@ -28,11 +28,10 @@ export default function AboutPage() {
       <section className="about-philosophy section-space" aria-labelledby="philosophy-title">
         <Container>
           <div className="editorial-split">
-            <div><SectionLabel>Engineering philosophy</SectionLabel><SectionHeading id="philosophy-title">Understand the work.<br />Then build the right thing.</SectionHeading></div>
+            <div><SectionLabel>Our perspective</SectionLabel><SectionHeading id="philosophy-title">A connected view<br />of the business.</SectionHeading></div>
             <div className="editorial-body">
-              <p>A website is often the beginning of a wider system. Behind an enquiry, purchase or booking sit business records, team decisions and tools that need to connect.</p>
-              <p>We consider that whole picture. Start with the problem, choose a practical scope and give the customer experience the same care as the software behind it.</p>
-              <p>Good engineering makes a system understandable: to the people using it, to the team running it and to whoever needs to change it next.</p>
+              <p>We bring the customer-facing experience and the software behind it into one view. Content, interfaces, business records and integrations need to work together.</p>
+              <p>The result should remain understandable to the people using it, the team running it and whoever makes the next change.</p>
               <Link href="/services" className="text-link">What we can build <ArrowIcon /></Link>
             </div>
           </div>

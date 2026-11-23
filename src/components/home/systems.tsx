@@ -9,13 +9,12 @@ export function Systems() {
     <Container>
       <div className="systems-introduction">
         <div><SectionLabel>Beyond the website</SectionLabel><SectionHeading id="systems-title">The front door is only<br />part of the system.</SectionHeading></div>
-        <div><p>Your website can connect to the work behind it: customer records, calendars, orders and team dashboards. Assistants and task-specific agents can prepare the next step, using approved information and clear permissions.</p><Link href="/contact" className="text-link">Discuss a connected system <ArrowIcon /></Link></div>
+        <div><p>See how an enquiry, order or booking carries information into business operations. This example follows the customer action through to a useful team response.</p><Link href="/contact" className="text-link">Discuss a connected system <ArrowIcon /></Link></div>
       </div>
       <figure className="system-figure">
         <BusinessJourney />
         <figcaption>Automation follows agreed rules. AI assistance uses approved information, with people reviewing consequential actions.</figcaption>
       </figure>
-      <div className="system-principles"><p><span aria-hidden="true">+</span> Connected information</p><p><span aria-hidden="true">+</span> Clear permissions</p><p><span aria-hidden="true">+</span> Human oversight</p></div>
     </Container>
   </section>;
 }
