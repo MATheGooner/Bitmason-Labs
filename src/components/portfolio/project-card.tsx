@@ -19,7 +19,7 @@ export function ProjectCard({ project: record, featured = false }: { project: Po
         </div>
         <h3><Link href={href}>{project.name}</Link></h3>
         <p className="project-description">{project.summary}</p>
-        <Link href={href} className="text-link project-detail-link">Explore the case study <ArrowIcon /><span className="sr-only">: {project.name}</span></Link>
+        <Link href={href} className="text-link project-detail-link">Explore project <ArrowIcon /><span className="sr-only">: {project.name}</span></Link>
       </figcaption>
     </figure>
   );

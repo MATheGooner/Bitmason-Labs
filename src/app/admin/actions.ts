@@ -60,7 +60,7 @@ export async function saveProject(previous: ProjectFormState, form: FormData): P
     values = readProjectForm(form);
     await requireAdmin();
     const parsed = parseProjectValues(values);
-    if (!parsed.success) return { status: "invalid", message: "Please check the highlighted fields. Publishing requires a complete project study.", errors: formErrors(parsed.error.issues), values, responseId };
+    if (!parsed.success) return { status: "invalid", message: "Please check the highlighted fields. Publishing requires complete project content.", errors: formErrors(parsed.error.issues), values, responseId };
     const id = String(form.get("id") ?? "");
     const existing = id ? { id, updatedAt: String(form.get("updatedAt") ?? "") } : undefined;
     const { preview, ...project } = parsed.data;

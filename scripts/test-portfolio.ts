@@ -1,11 +1,12 @@
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { test } from "node:test";
-import { parseProjectValues, projectTextFields, projectValues, readProjectForm } from "../src/lib/admin-project";
+import { formErrors, parseProjectValues, projectTextFields, projectValues, readProjectForm } from "../src/lib/admin-project";
 import { ASSET_PUBLIC_ORIGIN, MEDIA_KEY_PREFIX } from "../src/lib/media";
 import type { PortfolioProject } from "../src/lib/portfolio";
 import { selectPublishedProjects } from "../src/lib/portfolio";
 import { getProjectCover } from "../src/lib/project-covers";
+import { getProjectWebsiteUrl } from "../src/lib/project-website";
 import { localProjects } from "../src/server/portfolio/local-projects";
 
 /** Disposable in-memory records only; these checks never connect to the database or R2. */
@@ -83,5 +84,40 @@ test("seed cover variants remain available and administrator replacements remain
     const uploaded = getProjectCover(replacement);
     assert.deepEqual(uploaded.desktop, replacement.cover);
     assert.equal(uploaded.mobile, undefined);
+  }
+});
+
+test("website destinations preserve their path, query and fragment while rejecting unsafe links", () => {
+  const website = "https://portfolio.example/work?preview=desktop&theme=light#features";
+  assert.equal(getProjectWebsiteUrl(`  ${website}  `), website);
+  for (const value of [null, undefined, "", "  ", "/portfolio", "//portfolio.example", "javascript:alert(1)", "data:text/html,test", "http://portfolio.example", "https://admin:password@portfolio.example", "https://admin@portfolio.example", "not a URL"]) {
+    assert.equal(getProjectWebsiteUrl(value), null, `Reject ${value ?? "missing URL"}`);
+  }
+});
+
+test("dashboard website URL can be set, updated and cleared without changing project content", () => {
+  let project = dashboardProject();
+  for (const liveUrl of ["https://portfolio.example/first?source=portfolio#overview", "https://updated.example/website", ""]) {
+    const values = { ...projectValues(project), liveUrl: `  ${liveUrl}  ` };
+    const form = new FormData();
+    for (const field of projectTextFields) form.set(field, values[field]);
+    form.set("featured", "on");
+    form.set("galleryCount", "0");
+    const result = parseProjectValues(readProjectForm(form));
+    assert.equal(result.success, true);
+    if (!result.success) return;
+    assert.deepEqual(result.data, { ...project, liveUrl: liveUrl || null });
+    project = result.data;
+    assert.equal(projectValues(project).liveUrl, liveUrl, "Reopening the form restores the saved website URL");
+  }
+});
+
+test("invalid website URLs are associated with the editable dashboard field", () => {
+  const project = dashboardProject();
+  for (const liveUrl of ["javascript:alert(1)", "/images/projects/cover.webp", "http://portfolio.example", "https://user:password@portfolio.example", `https://portfolio.example/${"a".repeat(2048)}`]) {
+    const result = parseProjectValues({ ...projectValues(project), liveUrl });
+    assert.equal(result.success, false);
+    if (result.success) continue;
+    assert.ok(formErrors(result.error.issues).liveUrl);
   }
 });

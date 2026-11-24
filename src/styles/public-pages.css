@@ -22,6 +22,7 @@
   .page-hero h1 > span { color: var(--color-accent); }
   .page-lead { max-width: 43rem; margin-top: 1.75rem; color: var(--color-muted); font-size: clamp(1rem, 1.4vw, 1.125rem); line-height: 1.85; }
   .page-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.75rem; margin-top: 1.75rem; }
+  .project-page-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1.25rem; }
   .page-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 2.5rem; color: var(--color-muted); font-size: 0.8125rem; }
   .page-breadcrumb > a { display: inline-flex; min-height: 2.75rem; align-items: center; color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.3rem; }
 
@@ -119,11 +120,10 @@
   .case-gallery-section { border-top: 1px solid var(--color-line); padding-top: clamp(3.5rem, 6vw, 5rem); }
   .case-gallery { display: grid; gap: 3rem; }
   .gallery-image { display: block; width: 100%; height: auto; border: 1px solid var(--color-line); }
-  .gallery-item > a { display: block; }
   .gallery-item figcaption { margin-top: 1.25rem; }
   .gallery-item figcaption > .technical-label { color: var(--color-copper); }
   .gallery-item figcaption > p { max-width: 42rem; margin-top: 0.75rem; color: var(--color-muted); font-size: 0.875rem; line-height: 1.8; }
-  .gallery-item figcaption > a { margin-top: 0.5rem; }
+  .project-explore-action { margin-top: 2.5rem; }
   .gallery-photograph { width: min(100%, 50rem); justify-self: end; }
   .next-project { border-top: 1px solid var(--color-line); padding-block: 3rem; }
   .next-project a { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 1rem; }

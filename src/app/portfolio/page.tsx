@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/container";
 import { publicPageMetadata } from "@/lib/metadata";
 import { getPortfolioCategories, listPublishedProjects } from "@/server/portfolio/reader";
 
-export const metadata = publicPageMetadata("Selected work", "Explore design and engineering case studies across hospitality, home services, healthcare and property, from customer discovery to connected operations.", "/portfolio");
+export const metadata = publicPageMetadata("Selected work", "Explore design and engineering projects across hospitality, home services, healthcare and property, from customer discovery to connected operations.", "/portfolio");
 
 export default async function PortfolioPage({ searchParams }: { searchParams: Promise<{ category?: string | string[] }> }) {
   const [query, categories, allProjects] = await Promise.all([searchParams, getPortfolioCategories(), listPublishedProjects()]);

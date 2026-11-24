@@ -36,4 +36,7 @@ The dynamic route accepts new slugs and returns 404 for missing, draft or
 unavailable records. Failures never fall back to local published records and never
 expose database errors. Completed status never follows automatically from publication.
 Public image components retain the authored layouts and show an accessible
-fallback when delivery fails. Gallery fallbacks remove both full-image links.
+fallback when delivery fails. Gallery images support the project presentation;
+they do not link to image files. The optional saved live URL supplies the primary
+Explore Live Website buttons near the top and after the gallery. Edit Website URL
+in the dashboard's Project details section; an empty value removes both buttons.

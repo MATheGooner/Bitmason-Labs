@@ -1,6 +1,7 @@
 import { z } from "zod";
 import type { PortfolioProject, ProjectGalleryImage } from "./portfolio";
 import { assetIdFromUrl, isImageReference } from "./media";
+import { getProjectWebsiteUrl } from "./project-website";
 
 const slug = z.string().min(1).max(100).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase letters, numbers and single hyphens.");
 const text = (max: number) => z.string().trim().max(max);
@@ -18,7 +19,7 @@ export const projectSchema = z.object({
   gallery: z.array(image.extend({ id: slug, caption: text(2000), order: z.number().int().min(0).max(100000), kind: z.enum(["interface", "photograph"]) })).max(20),
   overview: list, businessProblem: text(10000), solution: text(10000),
   features: list, technologies: list, useCases: list, scope: list, deliveryNote: text(5000),
-  liveUrl: z.string().max(2048).refine((value) => { try { const url = new URL(value); return url.protocol === "https:" && !url.username && !url.password; } catch { return false; } }, "Use a verified HTTPS URL.").nullable(),
+  liveUrl: z.string().trim().max(2048).refine((value) => getProjectWebsiteUrl(value) !== null, "Use an absolute HTTPS website URL without credentials.").nullable(),
   preview: z.object({ theme: z.enum(["le-saphir", "ecoshine", "northfield", "aurelia", "linden"]), headline: text(200).min(1), label: text(200).min(1), sector: text(100).min(1) }).optional(),
 }).superRefine((project, ctx) => {
   const images = [{ image: project.cover, path: ["cover"] as (string | number)[] }, ...project.gallery.map((item, i) => ({ image: item, path: ["gallery", i] as (string | number)[] }))];

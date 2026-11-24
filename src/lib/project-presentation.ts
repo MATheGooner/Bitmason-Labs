@@ -137,7 +137,7 @@ const refinedCopy = new Map<string, string>([
   ],
   [
     "The original project documents an availability and appointment-request model. This study describes that implementation scope without asserting clinical approval, real patient use or a production deployment.",
-    "The interface pairs service information with an appointment-request model, including availability rules and validation. The case study focuses on information architecture and request journeys."
+    "The interface pairs service information with an appointment-request model, including availability rules and validation. The project focuses on information architecture and request journeys."
   ],
   [
     "Practitioner information within the fictional concept",
