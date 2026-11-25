@@ -10,6 +10,14 @@ export function ArrowIcon({ className, ...props }: IconProps) {
   );
 }
 
+export function ArrowUpRightIcon({ className, ...props }: IconProps) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" width="14" height="14" aria-hidden="true" className={className} {...props}>
+      <path d="M2 14 14 2M2 2h12v12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" strokeLinejoin="miter" />
+    </svg>
+  );
+}
+
 export function CapabilityIcon({ kind }: { kind: "experience" | "systems" | "intelligence" }) {
   return (
     <svg viewBox="0 0 48 48" fill="none" width="48" height="48" aria-hidden="true" className="capability-icon">
